@@ -17,14 +17,14 @@ const colors = {
   info: '#3867d6',
   warning: '#ffa800',
   danger: '#dd427c',
-};
+}
 
 const bordersRadius = {
   small: '2px',
   normal: '4px',
   large: '8px', 
   rounded: '50%',
-};
+}
 
 const fontSizes = [
   '12px',
@@ -35,18 +35,18 @@ const fontSizes = [
   '32px',
   '40px',
   '48px'
-];
+]
 
 const fontWeights = {
   normal: 400,
   bold: 700,
-};
+}
 
 const lineHeights = {
   condensedUltra: 1,
   condensed: 1.25,
   default: 1.5,
-};
+}
 
 const space = [
   '0',
@@ -65,22 +65,13 @@ const space = [
   '96px',
   '112px',
   '128px'
-];
+]
 
 const sizes = {
   large: '1012px',
   medium: '768px',
   small: '544px',
 }
-
-// const button = {
-//   primary: {
-//     color: colors.white,
-//     border: `1px solid ${colors.primary}`,
-//     bg: colors.primary,
-//     shadow: '0px 1px 0px rgba(20, 70, 32, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.03)'
-//   },
-// };
 
 const general = {
   colors,
@@ -90,8 +81,7 @@ const general = {
   lineHeights,
   space,
   sizes,
-  // button,
-};
+}
 
-export default general;
-export { colors };
+export default general
+export { colors }

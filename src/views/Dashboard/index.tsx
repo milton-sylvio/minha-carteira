@@ -1,32 +1,30 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react'
 
-import ContentHeader from '../../components/ContentHeader'
-import Dropdown from '../../components/UI/Dropdown';
-import ColorCard from '../../components/ColorCard';
-import MessageCard from '../../components/MessageCard';
-import ChartPie from '../../components/Charts/PieBox';
-import ChartLine from '../../components/Charts/LineBox';
-import ChartBar from '../../components/Charts/BarBox';
+import { BarBox, LineBox, PieBox } from 'components/Charts'
+import ColorCard from 'components/ColorCard'
+import ContentHeader from 'components/ContentHeader'
+import MessageCard from 'components/MessageCard'
+import { UiDropdown } from 'components/UI'
 
-import gains from '../../repositories/gains';
-import expenses from '../../repositories/expenses';
+import gains from 'repositories/gains'
+import expenses from 'repositories/expenses'
 
-import monthsList from '../../utils/months';
-import formatCurrency from '../../utils/formatCurrency';
+import monthsList from 'helpers/utils/months'
+import formatCurrency from 'helpers/utils/formatCurrency'
 
-import happyIcon from '../../assets/happy.svg';
-import sadIcon from '../../assets/sad.svg';
-import opsIcon from '../../assets/ops.svg';
+import happyIcon from 'assets/happy.svg'
+import sadIcon from 'assets/sad.svg'
+import opsIcon from 'assets/ops.svg'
 
-import { colors } from '../../styles/themes/general';
+import { colors } from 'styles/themes/general'
 
-import { Container, Content, ContainerColorsCards } from './styles';
+import { Container, Content, ContainerColorsCards } from './styles'
 
 const Dashboard: React.FC = () => {
-  const dateNow = new Date();
+  const dateNow = new Date()
   
-  const [monthSelected, setMonthSelected] = useState<number>(dateNow.getMonth() + 1);
-  const [yearSelected, setYearSelected] = useState<number>(dateNow.getFullYear());
+  const [monthSelected, setMonthSelected] = useState<number>(dateNow.getMonth() + 1)
+  const [yearSelected, setYearSelected] = useState<number>(dateNow.getFullYear())
 
   const months = useMemo(() => {
     return monthsList.map((month, index) => {
@@ -35,19 +33,19 @@ const Dashboard: React.FC = () => {
         label: month,
       }
     })
-  }, []);
+  }, [])
 
   const years = useMemo(() => {
     let uniqueYears: number[] = [];
 
     [...expenses, ...gains].forEach(item => {
-      const date = new Date(item.date);
-      const year = date.getFullYear();
+      const date = new Date(item.date)
+      const year = date.getFullYear()
 
       if (!uniqueYears.includes(year)) {
         uniqueYears.push(year);
       }
-    });
+    })
 
     return uniqueYears.map(year => {
       return {
@@ -55,27 +53,27 @@ const Dashboard: React.FC = () => {
         label: year,
       }
     })
-  }, []);
+  }, [])
 
   const totalExpenses = useMemo(() => {
     let total: number = 0;
 
     expenses.forEach(item => {
-      const date = new Date(item.date);
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
+      const date = new Date(item.date)
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
 
       if (month === monthSelected && year === yearSelected) {
         try {
-          total += Number(item.amount);
+          total += Number(item.amount)
         } catch (error) {
-          throw new Error(`Valor inválido: ${error}`);
+          throw new Error(`Valor inválido: ${error}`)
         }
       }
-    });
+    })
 
-    return total;
-  }, [monthSelected, yearSelected]);
+    return total
+  }, [monthSelected, yearSelected])
 
   const totalGains = useMemo(() => {
     let total: number = 0;
@@ -92,14 +90,14 @@ const Dashboard: React.FC = () => {
           throw new Error(`Valor inválido: ${error}`);
         }
       }
-    });
+    })
 
     return total;
-  }, [monthSelected, yearSelected]);
+  }, [monthSelected, yearSelected])
 
   const totalBalance = useMemo(() => {
-    return totalGains - totalExpenses;
-  }, [totalGains, totalExpenses]);
+    return totalGains - totalExpenses
+  }, [totalGains, totalExpenses])
 
   const message = useMemo(() => {
     if (totalBalance < 0) {
@@ -132,7 +130,7 @@ const Dashboard: React.FC = () => {
       }
     }
 
-  }, [totalBalance, totalExpenses]);
+  }, [totalBalance, totalExpenses])
   
   const relationExpensesVersusGains = useMemo(() => {
     const total = totalGains + totalExpenses;
@@ -155,7 +153,7 @@ const Dashboard: React.FC = () => {
         color: colors.primary,
         type: 'output'
       },
-    ];
+    ]
 
     return data;
   }, [totalGains, totalExpenses])
@@ -165,34 +163,34 @@ const Dashboard: React.FC = () => {
        let amountEntry = 0;
 
        gains.forEach(gain => {
-         const date = new Date(gain.date);
-         const gainMonth = date.getMonth();
-         const gainYear = date.getFullYear();
+         const date = new Date(gain.date)
+         const gainMonth = date.getMonth()
+         const gainYear = date.getFullYear()
 
          if (gainMonth === month && gainYear === yearSelected) {
           try {
-            amountEntry += Number(gain.amount);
+            amountEntry += Number(gain.amount)
           } catch {
-            throw new Error('O valor de entrada é inválido, por favor, verifique o valor');
+            throw new Error('O valor de entrada é inválido, por favor, verifique o valor')
           }
          }
-       });
+       })
 
-       let amountOutput = 0;
+       let amountOutput = 0
 
        expenses.forEach(expense => {
-         const date = new Date(expense.date);
-         const expenseMonth = date.getMonth();
-         const expenseYear = date.getFullYear();
+         const date = new Date(expense.date)
+         const expenseMonth = date.getMonth()
+         const expenseYear = date.getFullYear()
 
          if (expenseMonth === month && expenseYear === yearSelected) {
           try {
-            amountOutput += Number(expense.amount);
+            amountOutput += Number(expense.amount)
           } catch {
             throw new Error('O valor de saída é inválido, por favor, verifique o valor');
           }
          }
-       });
+       })
 
        return {
         monthNumber: month,
@@ -205,7 +203,7 @@ const Dashboard: React.FC = () => {
       const currentMonth = new Date().getMonth();
       const currentYear = new Date().getFullYear();
       return (yearSelected === currentYear && item.monthNumber <= currentMonth) || (yearSelected < currentYear)
-    });
+    })
 
   }, [yearSelected]);
   
@@ -214,28 +212,28 @@ const Dashboard: React.FC = () => {
     let amountEventual = 0;
 
     expenses.filter(expense => {
-      const date = new Date(expense.date);
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
+      const date = new Date(expense.date)
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
 
-      return month === monthSelected && year === yearSelected;
+      return month === monthSelected && year === yearSelected
     })
     .forEach(expense => {
       if (expense.frequency === 'recorrente') {
-        return amountRecurrent += Number(expense.amount);
+        return amountRecurrent += Number(expense.amount)
       }
 
       if (expense.frequency === 'eventual') {
-        return amountEventual += Number(expense.amount);
+        return amountEventual += Number(expense.amount)
       }
-    });
+    })
 
     const total = amountRecurrent + amountEventual;
     const calcPercents = (value, totalValue) => {
-      return Number(((value / totalValue) * 100).toFixed(1)) | 0;
-    };
-    const recurrentPercent = calcPercents(amountRecurrent, total);
-    const eventualPercent = calcPercents(amountEventual, total);
+      return Number(((value / totalValue) * 100).toFixed(1)) | 0
+    }
+    const recurrentPercent = calcPercents(amountRecurrent, total)
+    const eventualPercent = calcPercents(amountEventual, total)
 
     return [
       {
@@ -255,36 +253,36 @@ const Dashboard: React.FC = () => {
         type: 'eventual',
       },
     ]
-  }, [monthSelected, yearSelected]);
+  }, [monthSelected, yearSelected])
 
   const relationGainsRecurrentVersusEventual = useMemo(() => {
-    let amountRecurrent = 0;
-    let amountEventual = 0;
+    let amountRecurrent = 0
+    let amountEventual = 0
 
     gains.filter(gain => {
-      const date = new Date(gain.date);
+      const date = new Date(gain.date)
       const year = date.getFullYear();
-      const month = date.getMonth() + 1;
+      const month = date.getMonth() + 1
 
       return month === monthSelected && year === yearSelected;
     })
     .forEach(gain => {
       if (gain.frequency === 'recorrente') {
-        return amountRecurrent += Number(gain.amount);
+        return amountRecurrent += Number(gain.amount)
       }
 
       if (gain.frequency === 'eventual') {
-        return amountEventual += Number(gain.amount);
+        return amountEventual += Number(gain.amount)
       }
-    });
+    })
 
     const calcPercents = (value, totalValue) => {
-      return Number(((value / totalValue) * 100).toFixed(1)) | 0;
-    };
+      return Number(((value / totalValue) * 100).toFixed(1)) | 0
+    }
 
     const total = amountRecurrent + amountEventual;
-    const recurrentPercent = calcPercents(amountRecurrent, total);
-    const eventualPercent = calcPercents(amountEventual, total);
+    const recurrentPercent = calcPercents(amountRecurrent, total)
+    const eventualPercent = calcPercents(amountEventual, total)
 
     return [
       {
@@ -304,33 +302,33 @@ const Dashboard: React.FC = () => {
         type: 'eventual',
       },
     ]
-  }, [monthSelected, yearSelected]);
+  }, [monthSelected, yearSelected])
  
   const handleMonthSelected = (month: String) => {
     try {
-      setMonthSelected(Number(month));
+      setMonthSelected(Number(month))
     } catch (error) {
-      throw new Error(`Valor inválido do mês. Aceito somente de 0 - 23: ${error}`);
+      throw new Error(`Valor inválido do mês. Aceito somente de 0 - 23: ${error}`)
     }
-  };
+  }
 
-  const handleYearSelected = (year : String) => {
+  const handleYearSelected = (year: String) => {
     try {
-      setYearSelected(Number(year ));
+      setYearSelected(Number(year ))
     } catch (error) {
-      throw new Error('Valor inválido do mês. Aceito somente de 0 - 23');
+      throw new Error('Valor inválido do mês. Aceito somente de 0 - 23')
     }
-  };
+  }
 
   return (
     <Container>
       <ContentHeader title="Dashboard">
-        <Dropdown 
+        <UiDropdown 
           options={months} 
           onChange={(e) => handleMonthSelected(e.target.value)}
           defaultValue={monthSelected}
         />
-        <Dropdown 
+        <UiDropdown 
           options={years} 
           onChange={(e) => handleYearSelected(e.target.value)}
           defaultValue={yearSelected}
@@ -369,25 +367,25 @@ const Dashboard: React.FC = () => {
           icon={message.icon}
         />
 
-        <ChartPie data={relationExpensesVersusGains} />
+        <PieBox data={relationExpensesVersusGains} />
 
-        <ChartLine 
+        <LineBox 
           data={historyData} 
           lineColorAmountEntry="#1bc5bd" 
           lineColorAmountOutput="#8950fc" 
         />
 
-        <ChartBar 
+        <BarBox 
           title="Entradas" 
           data={relationGainsRecurrentVersusEventual}
         />
-        <ChartBar 
+        <BarBox 
           title="Saídas" 
           data={relationExpensevesRecurrentVersusEventual}
         />
       </Content>
     </Container>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard

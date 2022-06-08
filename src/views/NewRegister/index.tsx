@@ -1,10 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import ContentHeader from '../../components/ContentHeader';
-import CurrencyInput from '../../components/CurrencyInput';
-import Input from '../../components/UI/Input';
-import UiButton from '../../components/UI/Button';
-import UiDropdown from '../../components/UI/Dropdown';
+import ContentHeader from 'components/ContentHeader'
+import CurrencyInput from 'components/CurrencyInput'
+import { UiButton, UiDropdown, UiInput } from 'components/UI'
 
 import { 
   Container, 
@@ -13,7 +11,7 @@ import {
   FormContainer,
   FormGroup,
   FormLabel
-} from './styles';
+} from './styles'
 
 const NewRegister: React.FC  = () => {
 
@@ -57,7 +55,7 @@ const NewRegister: React.FC  = () => {
               <FormLabel htmlFor="description">
                 Descrição
               </FormLabel>
-              <Input
+              <UiInput
                 name="description" 
                 id="description" 
                 type="text"
@@ -85,7 +83,7 @@ const NewRegister: React.FC  = () => {
               <FormLabel htmlFor="date">
                 Data
               </FormLabel>
-              <Input
+              <UiInput
                 name="date" 
                 id="date" 
                 type="date"
@@ -111,7 +109,7 @@ const NewRegister: React.FC  = () => {
               <FormLabel htmlFor="money">
                 Valor
               </FormLabel>
-              <Input
+              <UiInput
                 name="money" 
                 id="money" 
                 maskInput={CurrencyInput}
@@ -131,7 +129,7 @@ const NewRegister: React.FC  = () => {
         </Forms>
       </FormCard>
     </Container>
-  );
-};
+  )
+}
 
-export default NewRegister;
+export default NewRegister

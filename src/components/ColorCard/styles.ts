@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { rgba } from 'polished';
+import styled from 'styled-components'
+import { rgba } from 'polished'
 
 export const Container = styled.div`
   align-items: flex-start;
@@ -55,4 +55,4 @@ export const Container = styled.div`
   @media(max-width: ${ props => props.theme.general.sizes.medium }) {
     margin-bottom: ${ props => props.theme.general.space[3] };
   }
-`;
+`

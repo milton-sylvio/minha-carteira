@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-import Card from '../UI/Card/styles';
+import styled, { keyframes } from 'styled-components'
+import Card from '../UI/Card/styles'
 
 const animateLeft = keyframes`
   0% {
@@ -13,7 +13,7 @@ const animateLeft = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`;
+`
 
 const animateRight= keyframes`
   0% {
@@ -27,7 +27,7 @@ const animateRight= keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`;
+`
 
 interface IContainerProps {
   borderColor: string;
@@ -60,4 +60,4 @@ export const Container = styled(Card)<IContainerProps>`
     box-shadow: 0 0 5px 3px rgba(0,0,0,0.2);
     transform: translateX(10px);
   }
-`;
+`

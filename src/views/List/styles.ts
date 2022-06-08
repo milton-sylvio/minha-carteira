@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const Container = styled.div``;
+export const Container = styled.div``
 
 export const Content = styled.div`
   list-style: none;
-`;
+`
 
 export const Filters = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ export const Filters = styled.div`
     transition: all .3s;
     
     &:after {
-      content: '';
+      content: ''
       display: block;
       background-color: ${ props => props.theme.general.colors.white };
       height: 5px;
@@ -54,4 +54,4 @@ export const Filters = styled.div`
       }
     }
   }
-`;
+`

@@ -2,4 +2,4 @@ const strings = {
   minhaCarteira: '@minha-carteira:'
 }
 
-export default strings;
+export default strings

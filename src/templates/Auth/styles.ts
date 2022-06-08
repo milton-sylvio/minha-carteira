@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-import Card from '../../components/UI/Card/styles';
+import Card from 'components/UI/Card/styles'
 
 export const Container = styled.div`
   display: flex;
@@ -20,13 +20,13 @@ export const Container = styled.div`
       margin-left: ${ props => props.theme.general.space[1] };
     }
   }
-`;
+`
 
 export const ContainerSignin = styled.section`
   flex: 0;
   max-width: 350px;
   width: 100%;
-`;
+`
 
 export const ContainerForm = styled(Card)`
   display: flex;
@@ -39,13 +39,13 @@ export const ContainerForm = styled(Card)`
     margin-bottom: ${ props => props.theme.general.space[4] };
   
     &:after {
-      content: '';
+      content: ''
       background-color: ${ props => props.theme.general.colors.primary };
       display: block;
       height: 5px;
       width: 50px;
     }
   }
-`;
+`
 
 

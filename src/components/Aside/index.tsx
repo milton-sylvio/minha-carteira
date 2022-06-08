@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
-
-import { useHistory } from 'react-router-dom';
-import firebase from '../../firebase';
-import 'firebase/firestore';
-
-import { paths } from '../../configs/paths';
-
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import {
   MdDashboard,
   MdArrowDownward,
   MdArrowUpward,
   MdExitToApp,
   MdNoteAdd
-} from 'react-icons/md';
+} from 'react-icons/md'
 
-import Logo from '../Logo';
+import { auth, signOut } from 'helpers/utils/firebase'
+import { paths } from 'helpers/configs/paths'
 
-import { useMenuMobile } from '../../hooks/menu';
+import Logo from 'components/Logo'
+
+import { useMenuMobile } from 'hooks/menu'
+import { useTheme } from 'hooks/theme'
 
 import { 
   Container, 
@@ -25,9 +23,7 @@ import {
   MenuItem,
   MenuTitle,
   Toggle
-} from './styles';
-
-import { useTheme } from '../../hooks/theme';
+} from './styles'
 
 const Aside: React.FC = () => {
   const menu = [
@@ -51,27 +47,22 @@ const Aside: React.FC = () => {
       text: paths.OUTPUT.title,
       icon: <MdArrowDownward />,
     },
-  ];
+  ]
 
-  const history = useHistory();
-  const handleSignOut = (event: any) => {
-     event.preventDefault();
-     
-     firebase
-      .auth()
-      .signOut()
-      .then(res => {
-        history.push(paths.SIGN_IN.url);
-      })
-   }
+  const history = useHistory()
+  const handleSignOut = event => {
+    event.preventDefault()
+    signOut(auth)
+    history.push(paths.SIGN_IN.url)
+  }
 
-  const { toggleTheme, theme } = useTheme();
-  const [ getTheme, setTheme ] = useState(() => theme.mode === 'dark' ? true : false);
-  const { toggleMenu } = useMenuMobile();
+  const { toggleTheme, theme } = useTheme()
+  const [ getTheme, setTheme ] = useState(() => theme.mode === 'dark' ? true : false)
+  const { toggleMenu } = useMenuMobile()
 
   const handleChangeTheme = () => {
-    setTheme(!getTheme);
-    toggleTheme();
+    setTheme(!getTheme)
+    toggleTheme()
   }
 
   return (
@@ -116,7 +107,7 @@ const Aside: React.FC = () => {
       />
 
     </Container>
-  );
+  )
 }
 
-export default Aside;
+export default Aside

@@ -1,16 +1,13 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React from 'react'
 
-import { Container } from './styles';
+import Spinner from 'components/Spinner'
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: string;
-}
+import { Container } from './styles'
+import { IButtonProps } from './types'
 
-const UiButton: React.FC<IButtonProps> = ({icon, children, ...rest }) => (
+export const UiButton: React.FC<IButtonProps> = ({icon, isLoading, children, ...rest }) => (
   <Container { ...rest }>
       { icon && <img src={icon} alt="" />}
-      {children}
+      {isLoading ? (<Spinner />) : children}
   </Container>
-);
-
-export default UiButton;
+)

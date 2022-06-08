@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { darken, rgba } from 'polished';
+import styled from 'styled-components'
+import { darken, rgba } from 'polished'
 
-import ToggleSwitch from '../UI/ToggleSwitch';
+import { UiToggleSwitch } from 'components/UI'
 
 export const Container = styled.header`
   align-items: center;
@@ -25,13 +25,13 @@ export const Container = styled.header`
       }
     }
   }
-`;
+`
 
 export const Profile = styled.div`
   align-items: center;
   display: flex;
   padding: 0 15px;
-`;
+`
 
 export const Welcome = styled.h3`
   font-size: ${ props => props.theme.general.fontSizes[3] };
@@ -39,12 +39,12 @@ export const Welcome = styled.h3`
   @media(max-width: ${ props => props.theme.general.sizes.small }) {
     font-size: ${ props => props.theme.general.fontSizes[0] };
   }
-`;
+`
 
 export const UserName = styled.small`
   display: block;
   font-weight: ${ props => props.theme.general.fontWeights.normal };
-`;
+`
 
 export const Emojis = styled.span`
   font-size: ${ props => props.theme.general.fontSizes[5] };
@@ -53,7 +53,7 @@ export const Emojis = styled.span`
   @media(max-width: ${ props => props.theme.general.sizes.small }) {
     font-size: ${ props => props.theme.general.fontSizes[4] };
   }
-`;
+`
 
 export const MenuMobile = styled.button`
   @media(max-width: ${ props => props.theme.general.sizes.small }) {
@@ -72,13 +72,13 @@ export const MenuMobile = styled.button`
     }
 
   }
-`;
+`
 
-export const Toggle = styled(ToggleSwitch)`
+export const Toggle = styled(UiToggleSwitch)`
   @media(max-width: ${ props => props.theme.general.sizes.small }) {
     display: none;
   }
-`;
+`
 
 export const ContainerActionsMobile = styled.div`
   display: none;
@@ -91,4 +91,4 @@ export const ContainerActionsMobile = styled.div`
       visibility: hidden;
     }
   }
-`;
+`

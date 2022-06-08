@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   align-items: center;
   display: flex;
   height: 20px;
-`;
+`
 
 export const ToggleSwitchLabel = styled.span`
   font-size: ${ props => props.theme.general.fontSizes[1] };
@@ -12,7 +12,7 @@ export const ToggleSwitchLabel = styled.span`
   @media(max-width: ${ props => props.theme.general.sizes.small }) {
     font-size: ${ props => props.theme.general.fontSizes[0] };
   }
-`;
+`
 
 export const ToggleSwitchContainer = styled.label`
   display: inline-block;
@@ -26,7 +26,7 @@ export const ToggleSwitchContainer = styled.label`
     opacity: 0;
     width: 0;
   }
-`;
+`
 
 export const ToggleSwitchSpan = styled.span`
   background-color: ${ props => props.theme.general.colors.primary };
@@ -51,7 +51,7 @@ export const ToggleSwitchSpan = styled.span`
     transition: .4s;
     width: 20px;
   }
-`;
+`
 
 export const ToggleSwitchInput = styled.input`
   &:checked + .switch-slider {
@@ -61,4 +61,4 @@ export const ToggleSwitchInput = styled.input`
       transform: translateX(20px);
     }
   }
-`;
+`

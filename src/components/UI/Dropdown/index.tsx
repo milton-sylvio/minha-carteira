@@ -1,18 +1,9 @@
-import React from 'react';
-import { Container } from './styles';
+import React from 'react'
 
-interface IDropdownProps {
-  options: {
-    value: string | number,
-    label: string | number,
-  }[],
-  defaultValue?: string | number;
-  id?: string;
-  required?: boolean;
-  onChange(envent: React.ChangeEvent<HTMLSelectElement>): void | undefined;
-}
+import { Container } from './styles'
+import { IDropdownProps } from './types'
 
-const Dropdown: React.FC<IDropdownProps> = ({ 
+export const UiDropdown: React.FC<IDropdownProps> = ({ 
   options, 
   id, 
   required,
@@ -37,6 +28,4 @@ const Dropdown: React.FC<IDropdownProps> = ({
         ))
       }
   </Container>
-);
-
-export default Dropdown;
+)

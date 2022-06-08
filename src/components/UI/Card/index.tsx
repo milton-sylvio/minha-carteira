@@ -1,10 +1,8 @@
-import React from 'react';
-import { Container } from './styles';
+import React from 'react'
+import { Container } from './styles'
 
-const Card: React.FC = ({ children }) => (
+export const UiCard: React.FC = ({ children }) => (
   <Container className="card">
     { children }
   </Container>
-);
-
-export default Card;
+)

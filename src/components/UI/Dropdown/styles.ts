@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { rgba } from 'polished';
+import styled from 'styled-components'
+import { rgba } from 'polished'
 
 export const Container = styled.select`   
   background-color: ${ props => props.theme.input.bg };
@@ -18,4 +18,4 @@ export const Container = styled.select`
   /* @media(max-width: ${ props => props.theme.general.sizes.medium }) {
     width: 48%;
   } */
-`;
+`

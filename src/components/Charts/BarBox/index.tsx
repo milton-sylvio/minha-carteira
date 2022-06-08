@@ -1,15 +1,11 @@
-import React from 'react';
-
+import React from 'react'
 import {
   ResponsiveContainer,
   BarChart,
   Bar,
   Cell,
   XAxis,
-  // YAxis,
-  // CartesianGrid,
-  // Tooltip,
-} from 'recharts';
+} from 'recharts'
 
 import { 
   Container, 
@@ -17,21 +13,11 @@ import {
   SideRight,
   LegendContainer,
   Legend
-} from './styles';
+} from './styles'
 
-interface IBarBoxProps {
-  title: string;
-  data: {
-    name: string;
-    amount: number;
-    legend: string;
-    percent: number;
-    color: string;
-    type: string;
-  }[];
-}
+import { IBarBoxProps } from './types'
 
-const BarBox: React.FC<IBarBoxProps> = ({ title, data }) => {
+export const BarBox: React.FC<IBarBoxProps> = ({ title, data }) => {
   return (
     <Container>
       <SideLeft>
@@ -69,7 +55,5 @@ const BarBox: React.FC<IBarBoxProps> = ({ title, data }) => {
         </ResponsiveContainer>
       </SideRight>
     </Container>
-  );
+  )
 }
-
-export default BarBox;

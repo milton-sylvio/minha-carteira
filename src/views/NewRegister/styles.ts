@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import Card from '../../components/UI/Card/styles';
+import styled from 'styled-components'
+import Card from 'components/UI/Card/styles'
 
-export const Container = styled.section``;
+export const Container = styled.section``
 
 export const FormCard = styled(Card)`
   width: 100%;
-`;
+`
 
 export const Forms = styled.form`
   display: flex;
@@ -21,7 +21,7 @@ export const Forms = styled.form`
       width: 100%;
     }
   }
-`;
+`
 
 export const FormContainer = styled.div`
   display: flex;
@@ -44,14 +44,14 @@ export const FormContainer = styled.div`
       width: 100%;
     }
   }
-`;
+`
 
 export const FormGroup = styled.div`
   padding:  ${ props => props.theme.general.space[0] } ${ props => props.theme.general.space[1] };
   margin-bottom: ${ props => props.theme.general.space[3] };
-`;
+`
 
 export const FormLabel = styled.label`
   display: flex;
   margin-bottom: ${ props => props.theme.general.space[1] };
-`;
+`

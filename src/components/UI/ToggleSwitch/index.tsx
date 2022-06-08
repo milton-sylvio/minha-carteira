@@ -1,21 +1,15 @@
-import React from 'react';
+import React from 'react'
 import { 
   Container,
   ToggleSwitchContainer,
   ToggleSwitchLabel,
   ToggleSwitchSpan,
   ToggleSwitchInput 
-} from './styles';
+} from './styles'
 
-interface IToggleSwitchProps {
-  checked: boolean;
-  labelLeft: string;
-  labelRight: string;
-  className: string;
-  onChange(): void;
-}
+import { IToggleSwitchProps } from './types'
 
-const ToggleSwitch: React.FC<IToggleSwitchProps> = ({ 
+export const UiToggleSwitch: React.FC<IToggleSwitchProps> = ({ 
   checked, 
   labelLeft,
   labelRight,
@@ -40,6 +34,4 @@ const ToggleSwitch: React.FC<IToggleSwitchProps> = ({
       { labelRight }
     </ToggleSwitchLabel>
   </Container>
-);
-
-export default ToggleSwitch;
+)

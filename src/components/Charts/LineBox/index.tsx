@@ -1,33 +1,25 @@
-import React from 'react';
+import React from 'react'
 import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
   CartesianGrid,
-  Tooltip
-} from 'recharts';
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+} from 'recharts'
 
-import formatCurrency from '../../../utils/formatCurrency';
+import formatCurrency from 'helpers/utils/formatCurrency'
 
 import { 
   Container, 
   Header,
   Legends,
   LegendItem
-} from './styles';
+} from './styles'
 
-interface ILineBoxProps {
-    data: {
-      month: string;
-      amountEntry: number;
-      amountOutput: number;
-  }[],
-  lineColorAmountEntry: string;
-  lineColorAmountOutput: string;
-}
+import { ILineBoxProps } from './types'
 
-const LineBox: React.FC<ILineBoxProps> = ({
+export const LineBox: React.FC<ILineBoxProps> = ({
   data,
   lineColorAmountEntry,
   lineColorAmountOutput
@@ -72,6 +64,4 @@ const LineBox: React.FC<ILineBoxProps> = ({
       </LineChart>
     </ResponsiveContainer> 
   </Container>
-);
-
-export default LineBox;
+)
