@@ -1,4 +1,4 @@
-import styled from 'styled-components';
-// import { rgba, math } from 'polished';
+import styled from 'styled-components'
+// import { rgba, math } from 'polished'
 
-export const Container = styled.div``;
+export const Container = styled.div``

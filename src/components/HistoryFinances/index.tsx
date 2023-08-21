@@ -1,14 +1,9 @@
-import React from 'react';
-import { Container } from './styles';
+import React from 'react'
 
-interface IHistoryFinancesProps {
-  borderColor: string;
-  title: string;
-  subtitle: string;
-  amount: string;
-}
+import { Container } from './styles'
+import { IHistoryFinances } from './types'
 
-const HistoryFinances: React.FC<IHistoryFinancesProps> = ({
+const HistoryFinances: React.FC<IHistoryFinances> = ({
   borderColor,
   title,
   subtitle,
@@ -21,6 +16,6 @@ const HistoryFinances: React.FC<IHistoryFinancesProps> = ({
     </div>
     <h3>{amount}</h3>
   </Container>
-);
+)
 
-export default HistoryFinances;
+export default HistoryFinances

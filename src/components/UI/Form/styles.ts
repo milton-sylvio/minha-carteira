@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { rgba, math } from 'polished';
+import styled from 'styled-components'
+import { rgba, math } from 'polished'
 
 export const FormContainer = styled.div`
   display: flex;
@@ -26,12 +26,18 @@ export const FormContainer = styled.div`
       width: 100%;
     }
   }
-`;
+`
 
 export const FormGroup = styled.div`
   padding:  ${ props => props.theme.general.space[0] } ${ props => props.theme.general.space[1] };
   margin-bottom: ${ props => props.theme.general.space[3] };
-`;
+`
+
+export const FormErrorMessage = styled.div`
+  color: ${ props => props.theme.general.colors.danger };
+  font-size: ${ props => props.theme.general.fontSizes[0] };
+  margin-top: ${ props => props.theme.general.space[1] };
+`
 
 export const FormLabel = styled.label`
   align-items: center;
@@ -49,4 +55,4 @@ export const FormLabel = styled.label`
       color: ${ props => props.theme.general.colors.primary }
     }
   }
-`;
+`

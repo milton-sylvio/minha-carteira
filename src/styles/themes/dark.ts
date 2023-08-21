@@ -1,6 +1,6 @@
-import general from './general';
+import general from './general'
 
-const mode = 'dark';
+const mode = 'dark'
 
 const backoundColor = general.colors.blue[2];
 const textColor = general.colors.white;

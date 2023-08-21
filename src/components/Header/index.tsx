@@ -1,19 +1,14 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react'
+import { MdMenu, MdClose } from 'react-icons/md'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
-import {
-  MdMenu,
-  MdClose
-} from 'react-icons/md';
+import emojiList from 'helpers/utils/emojis'
+import { auth, collection, db, query, getDocs, where } from 'helpers/utils/firebase'
 
-import emojiList from '../../utils/emojis';
+import { useTheme } from 'hooks/theme'
+import { useMenuMobile } from 'hooks/menu'
 
-import { useTheme } from '../../hooks/theme';
-import { useMenuMobile } from '../../hooks/menu';
-
-import Logo from '../Logo';
-
-import firebase from "../../firebase";
-import "firebase/firestore";
+import Logo from 'components/Logo'
 
 import { 
   Container,
@@ -24,44 +19,46 @@ import {
   MenuMobile,
   Toggle,
   ContainerActionsMobile
-} from './styles';
+} from './styles'
 
 const Header: React.FC = () => {
-  const emoji = useMemo(() => {
-    const index = Math.floor(Math.random() * emojiList.length);
-    return emojiList[index]
-  }, []);
+  const [user, loading] = useAuthState(auth)
+  const [name, seName] = useState()
 
-  const { handleToggleMenu, toggleMenu } = useMenuMobile();
+  const emoji = useMemo(() => {
+    const index = Math.floor(Math.random() * emojiList.length)
+    return emojiList[index]
+  }, [])
+
+  const { handleToggleMenu, toggleMenu } = useMenuMobile()
   
-  const { toggleTheme, theme } = useTheme();
-  const [ getTheme, setTheme ] = useState(() => theme.mode === 'dark' ? true : false);
+  const { toggleTheme, theme } = useTheme()
+  const [ getTheme, setTheme ] = useState(() => theme.mode === 'dark')
   
   const handleChangeTheme = () => {
-    setTheme(!getTheme);
-    toggleTheme();
+    setTheme(!getTheme)
+    toggleTheme()
   }
 
-  const [userName, setUserName] = useState();
-
   useEffect(() => { 
-    const db = firebase.firestore();
+    if (loading) return
+  
+    const fetchUserName = async () => {
+      try {
+        const usersRef = collection(db, 'Users')
+        const q = query(usersRef, where('uid', '==', user?.uid))
+        const doc = await getDocs(q)
+        const data = doc.docs[0].data()
+        const fullname = data.name.split(' ')
+        seName(fullname[0])
+      } catch (err) {
+        console.error(err)
+        alert('An error occured while fetching user data')
+      }
+    }
 
-    db.collection('Users')
-      .doc(firebase.auth().currentUser!.uid)
-      .get()
-      .then(res => {
-        const user = res.data();
-        if (user) {
-          const fullname = user['name'];
-          // const name = fullname.split(' ');
-          // const n = name[0] + ' ' + name[1];
-
-          setUserName(fullname);
-        }
-      })
-}, []);
-
+    fetchUserName()
+}, [loading, user?.uid])
 
   return (
     <Container>
@@ -71,17 +68,17 @@ const Header: React.FC = () => {
         <MenuMobile 
           onClick={handleToggleMenu} 
           className={toggleMenu ? 'open' : ''} 
-          type="button"
+          type='button'
         >
-          { toggleMenu ? <MdClose className="icon-close" /> : <MdMenu className="icon-menu" /> }          
+          { toggleMenu ? <MdClose className='icon-close' /> : <MdMenu className='icon-menu' /> }          
         </MenuMobile>
       </ContainerActionsMobile>
 
       <Toggle
-        labelLeft="Light"
-        labelRight="Dark"
+        labelLeft='Light'
+        labelRight='Dark'
         checked={getTheme}
-        className="header"
+        className='header'
         onChange={handleChangeTheme} 
       />
 
@@ -90,11 +87,11 @@ const Header: React.FC = () => {
 
         <Welcome>
           Olá, 
-          <UserName>{userName}</UserName>
+          <UserName>{name}</UserName>
         </Welcome>
       </Profile>
     </Container>
-  );
+  )
 }
 
-export default Header;
+export default Header

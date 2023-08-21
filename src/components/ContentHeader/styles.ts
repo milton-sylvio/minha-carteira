@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.header`
   align-items: center;
@@ -12,7 +12,7 @@ export const Container = styled.header`
     margin-bottom: ${ props => props.theme.general.space[6] };
     flex-direction: column;
   }
-`;
+`
 
 export const TitleHeader = styled.h1` 
   @media(max-width: ${ props => props.theme.general.sizes.medium }) {
@@ -22,12 +22,12 @@ export const TitleHeader = styled.h1`
 
   &::after {
     background-color: ${ props => props.theme.general.colors.primary };
-    content: '';
+    content: ''
     display: block;
     height: 5px;
     width: 60px;
   }
-`;
+`
 
 export const Controllers = styled.div`
   display: flex;
@@ -55,5 +55,5 @@ export const Controllers = styled.div`
     justify-content: space-between;
     width: 100%;
   }
-`;
+`
 

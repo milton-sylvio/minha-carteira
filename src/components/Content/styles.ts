@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { rgba } from 'polished';
+import styled from 'styled-components'
+import { rgba } from 'polished'
 
 export const Container = styled.main`
   grid-area: CT;
@@ -24,7 +24,7 @@ export const Container = styled.main`
   @media(max-width: ${ props => props.theme.general.sizes.medium }) {
     padding: ${ props => props.theme.general.space[4] };
   }
-`;
+`
 
 export const Overlay = styled.div`
   @media(max-width: ${ props => props.theme.general.sizes.medium }) {
@@ -39,4 +39,4 @@ export const Overlay = styled.div`
       width: 100%;
     }
   }
-`;
+`

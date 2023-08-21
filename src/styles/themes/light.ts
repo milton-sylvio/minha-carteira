@@ -1,6 +1,6 @@
-import general from './general';
+import general from './general'
 
-const mode = 'ligth';
+const mode = 'ligth'
 
 const backoundColor = general.colors.gray[0];
 const textColor = general.colors.black;

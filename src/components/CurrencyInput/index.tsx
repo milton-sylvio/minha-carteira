@@ -1,24 +1,8 @@
-import React from 'react';
+import React from 'react'
 import MaskedInput from 'react-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
-interface ICurrencyInputProps {
-  inputmode?: string;
-  maskOptions?: {
-    prefix: string;
-    suffix: string;
-    includeThousandsSeparator: boolean;
-    thousandsSeparatorSymbol: string;
-    allowDecimal: boolean;
-    decimalSymbol: string;
-    decimalLimit: string;
-    requireDecimal: boolean;
-    allowNegative: boolean;
-    allowLeadingZeroes: boolean;
-    integerLimit: number;
-  };
-  typeInput?: string;
-}
+import { ICurrencyInput } from './types'
 
 const defaultMaskOptions = {
   prefix: 'R$ ',
@@ -34,7 +18,7 @@ const defaultMaskOptions = {
   allowLeadingZeroes: true,
 }
 
-const CurrencyInput: React.FC<ICurrencyInputProps> = ({ 
+const CurrencyInput: React.FC<ICurrencyInput> = ({ 
   inputmode = 'numeric',
   typeInput = 'text',
   maskOptions = {}, 
@@ -44,7 +28,7 @@ const CurrencyInput: React.FC<ICurrencyInputProps> = ({
   const currencyMask = createNumberMask({
     ...defaultMaskOptions,
     ...maskOptions
-  });
+  })
     
   return (
     <MaskedInput 
@@ -53,6 +37,6 @@ const CurrencyInput: React.FC<ICurrencyInputProps> = ({
       {...inputProps}
     />
   )
-};
+}
 
-export default CurrencyInput;
+export default CurrencyInput

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.section`
   background-color: ${ props => props.theme.card };
@@ -11,6 +11,6 @@ export const Container = styled.section`
   padding: ${ props => props.theme.general.space[4] };
   position: relative;
   width: 100%;
-`;
+`
 
 export default Container;

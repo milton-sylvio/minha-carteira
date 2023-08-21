@@ -1,17 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-import { 
-  Container, 
-  TitleHeader,
-  Controllers 
-} from './styles';
+import { Container, Controllers, TitleHeader } from './styles'
+import { IContentHeader } from './types'
 
-interface IContentHeaderProps {
-  title: string;
-  children?: React.ReactNode;
-}
-
-const ContentHeader: React.FC<IContentHeaderProps> = ({
+const ContentHeader: React.FC<IContentHeader> = ({
   title,
   children
 }) => (
@@ -24,6 +16,6 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({
       {children}
     </Controllers>
   </Container>
-);
+)
 
-export default ContentHeader;
+export default ContentHeader

@@ -19,12 +19,15 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
+    "rootDir": "src",
+    "baseUrl": "./src",
+    "outDir": "./",
     "noImplicitAny": false
   },
   "files": [
-    "src/styles/themes/styled.d.ts"
+    "src/styles/themes/styled.d.ts",
+    "src/custom.d.ts"
   ],
-  "include": [
-    "src"
-  ]
+  "include": ["src", "src/custom.d.ts"],
+  "exclude": ["node_modules", "build"]
 }

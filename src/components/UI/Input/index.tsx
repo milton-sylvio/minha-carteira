@@ -1,26 +1,20 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { useRef } from 'react'
 
-import { Container } from './styles';
+import { Container } from './styles'
+import { IInputProps } from './types'
 
-interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  icon?: React.ComponentType;
-  maskInput?: React.ComponentType;
-  mask?: (string | RegExp)[];
-}
-
-const UiInput: React.FC<IInputProps> = ({ 
+export const UiInput: React.FC<IInputProps> = ({ 
   icon: Icon, 
   maskInput: MaskInput,
   ...rest 
 }) => { 
-  const getIcon = Icon ? true : false;
+  const getIcon = !!Icon
+  const inputRef = useRef(null);
 
   return (
     <Container showIcon={getIcon}>
       { Icon && <Icon /> }
-      { !MaskInput ? <input { ...rest } /> : <MaskInput { ...rest } /> }
+      { !MaskInput ? <input ref={inputRef} { ...rest } /> : <MaskInput  { ...rest } /> }
     </Container>
   )
-};
-
-export default UiInput;
+}

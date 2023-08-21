@@ -1,137 +1,161 @@
-import React, { useState, useContext } from 'react';
-import MaskedInput from 'react-text-mask';
-import { useHistory } from 'react-router-dom';
-import {
-  MdEmail,
-  MdLock,
-  MdPhone
-} from 'react-icons/md';
+import React, { useState, useEffect } from 'react'
+import MaskedInput from 'react-text-mask'
+import { useHistory } from 'react-router-dom'
+import { MdEmail, MdLock, MdPerson, MdPhone } from 'react-icons/md'
+import { useForm, Controller } from 'react-hook-form'
 
-import UiInput from '../../components/UI/Input';
-import UiButton from '../../components/UI/Button';
-
-import { AuthContext } from '../../hooks/auth';
-
-import firebase from '../../firebase';
-import 'firebase/auth';
-import 'firebase/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 import { 
   FormContainer, 
+  FormErrorMessage,
   FormGroup,
-  FormLabel 
-} from '../../components/UI/Form/styles';
+  FormLabel,
+  UiButton,
+  UiInput
+} from 'components/UI'
 
-import { paths } from '../../configs/paths';
+import { 
+  addDoc, 
+  auth, 
+  collection, 
+  createUserWithEmailAndPassword, 
+  db 
+} from 'helpers/utils/firebase'
 
-interface IUserData {
-  name: string;
-  email: string;
-  phone: string;
-  password: string;
-}
+import { paths } from 'helpers/configs/paths'
+
+import { IUserData } from './types'
   
-const SignUp: React.FC<IUserData> = () => {
-  const authContext = useContext(AuthContext);
-  const history = useHistory();
-  const [values, setValues] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-  });
-  
-  const [passwordShow, setPasswordShow] = useState(false);
+const SignUp: React.FC = () => {
+  const [user, loading] = useAuthState(auth)
+  const history = useHistory()
+  const { control, handleSubmit, formState: { errors } } = useForm<IUserData>() 
+  const [passwordShow, setPasswordShow] = useState(false)
+
+  useEffect(() => {
+    if (loading) return
+    if (user) history.push(paths.DASHBOARD.url)
+  }, [user, loading, history])
+
   const toggleType = () => {
-    setPasswordShow(passwordShow ? false : true); 
-  };
-
-  const handleChange = (event: any) => {
-    event.preventDefault();
-
-    setValues(values => ({
-      ...values,
-      [event.target.name]: event.target.value
-    }));
+    setPasswordShow(passwordShow ? false : true) 
   }
-
-  const handleSubmit = (event: any) => {
-    event?.preventDefault();
-
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(values.email, values.password)
-      .then((userCredential : firebase.auth.UserCredential) => {
-        authContext.setUser(userCredential);
-
-        const db = firebase.firestore();
-        db.collection('Users')
-          .doc(userCredential.user!.uid)
-          .set({
-            name: values.name,
-            phone: values.phone
-          })
-          .then(() => {
-            console.log('ok::userCredential:', userCredential);
-            history.push('/dashboard');
-          })
-          .catch(error => {
-            console.log(error.message);
-            alert(error.message);
-          });
+  
+  const registerWithEmailAndPassword = async (email, password, name, phone) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password)
+      const user = res?.user
+      await addDoc(collection(db, 'Users'), {
+        uid: user?.uid,
+        name,
+        phone,
+        authProvider: 'local',
+        email,
       })
+
+      history.push(paths?.DASHBOARD?.url)
+    } catch (err) {
+      console.error(err)
+      alert(err)
+    }
   }
+
+  const onSubmit = values => {
+    if (values.email && values.password && values.name && values.phone) {
+      registerWithEmailAndPassword(values.email, values.password, values.name, values.phone)      
+    }
+  }
+
+  const inputPassw = field => (
+    <UiInput 
+      className={errors?.password && 'error'} 
+      icon={MdLock}
+      id="passw"
+      type={passwordShow ? "text" : "password"} 
+      {...field} 
+    />
+  )
+
+  const inputPhone = field => (
+    <UiInput 
+      icon={MdPhone}
+      className={errors?.phone && 'error'}
+      maskInput={MaskedInput}
+      mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      type="text"
+      id="phone"
+      {...field} 
+    />
+  )
+
+  const inputName = field => (
+    <UiInput 
+      className={errors?.name && 'error'}
+      icon={MdPerson} {...field}
+      id="name"
+      type="text"
+    />
+  )
 
   return (
     <>
       <h1>Cadastre-se</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer className="form-vertical">
           <FormGroup>
             <FormLabel htmlFor="name">
               Nome completo
             </FormLabel>
-            <UiInput 
-              icon={MdEmail}
-              type="text"
+
+            <Controller
               name="name"
-              id="name"
-              placeholder="Digite seu nome"
-              onChange={handleChange}
-              required
+              render={({ field }) => inputName(field)}
+              control={control}
+              rules={{ 
+                required: 'Campo obrigatório',  
+              }}
             />
+
+            <FormErrorMessage>{errors?.name?.message }</FormErrorMessage>
           </FormGroup>
+
           <FormGroup>
             <FormLabel htmlFor="email">
               E-mail
             </FormLabel>
-            <UiInput 
-              icon={MdEmail}
-              type="email"
+            <Controller
               name="email"
-              id="email"
-              placeholder="Digite seu e-mail"
-              onChange={handleChange}
-              required
+              render={({ field }) => <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />}
+              control={control}
+              rules={{ 
+                required: 'Campo obrigatório',  
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: 'Digite um email válido',
+                }
+              }}
             />
+
+            <FormErrorMessage>{errors?.email?.message }</FormErrorMessage>
           </FormGroup>
 
           <FormGroup>
             <FormLabel htmlFor="phone">
               Telefone
             </FormLabel>
-            <UiInput 
-              icon={MdPhone}
-              maskInput={MaskedInput}
-              mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-              type="text"
-              id="phone"
+
+            <Controller
               name="phone"
-              placeholder="Digite seu telefone"
-              onChange={handleChange}
-              required
+              render={({ field }) => inputPhone(field)}
+              control={control}
+              rules={{ 
+                required: 'Campo obrigatório',  
+              }}
             />
+
+            <FormErrorMessage>{errors?.phone?.message}</FormErrorMessage>
           </FormGroup>
 
           <FormGroup>
@@ -141,22 +165,21 @@ const SignUp: React.FC<IUserData> = () => {
                 {passwordShow ? "Ocultar" : "Mostrar"}
               </small>
             </FormLabel>
-            <UiInput 
-              icon={MdLock}
-              type={passwordShow ? "text" : "password"}
-              id="passw"
+
+            <Controller
               name="password"
-              placeholder="Digite sua senha"
-              onChange={handleChange}
-              required
+              render={({ field }) => inputPassw(field)}
+              control={control}
+              rules={{ 
+                required: 'Campo obrigatório',  
+              }}
             />
+
+            <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
           </FormGroup>
+
           <FormGroup>
-            <UiButton
-              type="submit"
-              icon=""
-              className="block"
-            >
+            <UiButton type="submit" className="block">
               Cadastrar
             </UiButton>
           </FormGroup>
@@ -173,7 +196,7 @@ const SignUp: React.FC<IUserData> = () => {
         </a>
       </p>
     </>
-  );
+  )
 }
 
-export default SignUp;
+export default SignUp

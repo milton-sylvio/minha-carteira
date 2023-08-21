@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 /** 
   * Layout
@@ -19,6 +19,5 @@ export const Grid = styled.div`
     grid-template-columns: 100%;
     grid-template-rows: 70px auto;
     grid-template-areas: 'MH' 'CT';
-
   }
-`;
+`

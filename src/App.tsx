@@ -1,20 +1,25 @@
-import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import GlobalStyles from './styles/GlobalStyles';
+import React from 'react'
+import { ThemeProvider } from 'styled-components'
+import { Router } from 'react-router-dom'
+import { createBrowserHistory } from 'history'
 
-import { useTheme } from './hooks/theme';
+import GlobalStyles from 'styles/GlobalStyles'
+import { useTheme } from 'hooks/theme'
 
-import Routes from './routes';
+import Routes from 'routes'
 
 const App: React.FC = () => {
-  const { theme } = useTheme();
+  const { theme } = useTheme()
+  const history = createBrowserHistory()
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Routes />
+      <Router history={history}>
+        <Routes />
+      </Router>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App

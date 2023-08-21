@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
-import { darken, rgba } from 'polished';
+import styled, { css } from 'styled-components'
+import { darken, rgba } from 'polished'
 
-import ToggleSwitch from '../UI/ToggleSwitch';
+import { UiToggleSwitch } from 'components/UI'
 interface IContainerProps {
-  menuIsOpen: boolean;
+  menuIsOpen: boolean
 }
 
 export const Container = styled.aside<IContainerProps>`
@@ -31,7 +31,7 @@ export const Container = styled.aside<IContainerProps>`
       transform: translateX(0);
     `};
   }
-`;
+`
 
 export const Header = styled.header`
   align-items: center;
@@ -42,7 +42,7 @@ export const Header = styled.header`
   @media(max-width: ${ props => props.theme.general.sizes.small }) {
     display: none;
   }
-`; 
+` 
 
 export const MenuContainer = styled.nav`
   display: flex;
@@ -54,14 +54,14 @@ export const MenuContainer = styled.nav`
   @media(max-width: ${ props => props.theme.general.sizes.small }) {
     margin-top: ${ props => props.theme.general.space[5] };
   }
-`; 
+` 
 
 export const MenuTitle = styled.span`
   color: ${ props => rgba(props.theme.textColor, 0.7) };
   font-size: ${ props => props.theme.general.fontSizes[0] };
   margin-bottom: ${ props => props.theme.general.space[3] };
   text-transform: uppercase;
-`;
+`
 
 export const MenuItem = styled.a`
   align-items: center;
@@ -88,9 +88,9 @@ export const MenuItem = styled.a`
     font-size: 18px;
     margin-right: 10px;
   }
-`;
+`
 
-export const Toggle = styled(ToggleSwitch)`
+export const Toggle = styled(UiToggleSwitch)`
   display: none;
   position: absolute;
   bottom: 90px;
@@ -100,4 +100,4 @@ export const Toggle = styled(ToggleSwitch)`
     display: flex;
     
   }
-`;
+`

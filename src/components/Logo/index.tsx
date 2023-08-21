@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import symbolLogo from '../../assets/logo.svg';
+import symbolLogo from 'assets/logo.svg'
 
-import { Container } from './styles';
+import { Container } from './styles'
 
 const Logo: React.FC = () => (
   <Container className="logo">

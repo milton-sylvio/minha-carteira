@@ -1,29 +1,22 @@
-import React from 'react';
+import React from 'react'
 import {
-  PieChart,
-  Pie,
   Cell,
-  ResponsiveContainer
-} from 'recharts';
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+} from 'recharts'
+
 import { 
   Container,
   SideLeft,
   SideRight,
   LegendContainer,
   Legend
-} from './styles';
+} from './styles'
 
-interface IPieChartProps {
-  data: {
-    name: string;
-    value: number;
-    percent: number;
-    color: string;
-    type: string;
-  }[];
-}
+import { IPieChart } from './types'
 
-const PieBox: React.FC<IPieChartProps> = ({data}) => (
+export const PieBox: React.FC<IPieChart> = ({data}) => (
   <Container>
     <SideLeft>
       <h2>Relação</h2>
@@ -59,6 +52,4 @@ const PieBox: React.FC<IPieChartProps> = ({data}) => (
       </ResponsiveContainer>
     </SideRight>
   </Container>
-);
-
-export default PieBox;
+)

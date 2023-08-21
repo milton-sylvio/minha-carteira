@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components';
-import { rgba } from 'polished';
+import styled, { css } from 'styled-components'
+import { rgba } from 'polished'
 
-interface IContainerProps {
-  showIcon: boolean;
+interface IContainer {
+  showIcon: boolean
 }
 
-export const Container = styled.div<IContainerProps>`
+export const Container = styled.div<IContainer>`
   align-items: center;
   display: flex;
   height: 40px;
@@ -16,6 +16,7 @@ export const Container = styled.div<IContainerProps>`
   svg {
     font-size: ${ props => props.theme.general.fontSizes[2] };
     left: ${ props => props.theme.general.space[3] };
+    opacity: 0.25;
     position: absolute;
   }
 
@@ -63,5 +64,10 @@ export const Container = styled.div<IContainerProps>`
       color: ${ props => props.theme.input.color };
       outline: 0;
     }
+
+    &.error {
+      border-color: ${ props => props.theme.general.colors.danger };
+      color: ${ props => props.theme.general.colors.danger };
+    }
   }
-`;
+`
