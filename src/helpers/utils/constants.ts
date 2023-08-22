@@ -9,3 +9,5 @@ export const ERROR_MESSAGES = {
   BALANCE_FAILED: 'Não foi possível carregar o saldo. Tente novamente.',
   EXTRACT_FAILED: 'Não foi possível carregar o extrato. Tente novamente.',
 }
+
+export const TIMEOUT = 1500

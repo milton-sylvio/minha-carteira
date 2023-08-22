@@ -24,56 +24,38 @@
 // export default Routes
 
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { Route, Switch } from 'react-router-dom'
 
-import InternalPagesTemplate from 'templates/InternalPages'
 import AuthTemplate from 'templates/Auth'
 
 import Dashboard from 'views/Dashboard'
 import List from 'views/List'
 import NewRegister from 'views/NewRegister'
-import SignIn from 'views/Signin'
+import SignIn from 'views/SignIn'
 import SignUp from 'views/Signup'
 
-import { auth } from 'helpers/utils/firebase'
 import { paths } from 'helpers/configs/paths'
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const [user] = useAuthState(auth)
+import { PrivateRoute } from './PrivateRoute'
 
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        if (!user) {
-          // not logged in so redirect to login page with the return url
-          return (
-            <Redirect to={{ pathname: paths.SIGN_IN.url, state: { from: props.location } }} />
-          )
-        }
+const {
+  DASHBOARD,
+  LISTING,
+  NEW_REGISTER,
+  SIGN_IN,
+  SIGN_UP,
+} = paths
 
-        // logged in so return component
-        return (
-          <InternalPagesTemplate>
-            <Component {...props} />
-          </InternalPagesTemplate>
-        )
-      }}
-    />
-  )
-}
-
-const Routes: React.FC = () => {
+const Routes = () => {
   return (
     <Switch>
-      <PrivateRoute path={paths.DASHBOARD.url} exact component={Dashboard} />
-      <PrivateRoute path={paths.LISTING.url} component={List} />
-      <PrivateRoute path={paths.NEW_REGISTER.url} exact component={NewRegister} />
+      <PrivateRoute path={DASHBOARD.url} exact component={Dashboard} />
+      <PrivateRoute path={LISTING.url} component={List} />
+      <PrivateRoute path={NEW_REGISTER.url} exact component={NewRegister} />
 
       <AuthTemplate>
-        <Route exact path={paths.SIGN_IN.url} component={SignIn} />
-        <Route exact path={paths.SIGN_UP.url} component={SignUp} />
+        <Route exact path={SIGN_IN.url} component={SignIn} />
+        <Route exact path={SIGN_UP.url} component={SignUp} />
       </AuthTemplate>
     </Switch>
   )

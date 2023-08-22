@@ -16,14 +16,23 @@ import {
 import { auth, signInWithEmailAndPassword } from 'helpers/utils/firebase'
 import { paths } from 'helpers/configs/paths'
 
+import { useSignIn } from './useSignIn'
+
 import { IUserData } from './types'
 
-const SignIn: React.FC = () => {
+const { DASHBOARD } = paths
+
+const SignIn = () => {
   const history = useHistory()
-  const [user, loading] = useAuthState(auth)
   const [passwordShow, setPasswordShow] = useState(false)
-  const [loader, setLoader] = useState(false)
   const { control, handleSubmit, formState: { errors } } = useForm<IUserData>()
+  const {
+    login,
+    loader,
+    error,
+    user,
+    loading,
+  } = useSignIn()
 
   useEffect(() => {
     if (loading) {
@@ -32,24 +41,12 @@ const SignIn: React.FC = () => {
     }
 
     if (user) {
-      history.push(paths.DASHBOARD.url)
+      history.push(DASHBOARD.url)
     }
   }, [user, loading, history]);
 
   const toggleType = () => {
     setPasswordShow(passwordShow ? false : true) 
-  }
-
-  const login = async (email, password) => {
-    setLoader(true)
-  
-    try {
-      await signInWithEmailAndPassword(auth, email, password)
-    } catch (err) {
-      console.error(err)
-      alert(err.message)
-      setLoader(false)
-    }
   }
 
   const onSubmit = values => {

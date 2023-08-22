@@ -8,7 +8,7 @@ import {
   ContainerForm,
 } from './styles'
 
-const AuthTemplate: React.FC = ({ children }) => (
+const AuthTemplate = ({ children }) => (
   <Container>
     <ContainerSignin>
       <Logo />
@@ -20,4 +20,4 @@ const AuthTemplate: React.FC = ({ children }) => (
   </Container>
 );
 
-export default AuthTemplate;
+export default AuthTemplate

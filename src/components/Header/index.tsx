@@ -21,7 +21,7 @@ import {
   ContainerActionsMobile
 } from './styles'
 
-const Header: React.FC = () => {
+const Header = () => {
   const [user, loading] = useAuthState(auth)
   const [name, seName] = useState()
 

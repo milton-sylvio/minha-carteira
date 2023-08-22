@@ -7,7 +7,7 @@ import {
   BarLoading
 } from './styles'
 
-export const UiLoading: React.FC = () => (
+export const UiLoading = () => (
   <Container>
     <Content>
       <Title>Carregando...</Title>
