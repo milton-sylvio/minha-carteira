@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { MdEmail, MdLock, } from 'react-icons/md'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 import {
   FormContainer,
@@ -13,18 +12,16 @@ import {
   UiButton
 } from 'components/UI'
 
-import { auth, signInWithEmailAndPassword } from 'helpers/utils/firebase'
 import { PATHS } from 'helpers/configs/paths'
 
 import { useSignIn } from './useSignIn'
-
 import { IUserData } from './types'
 
 const { DASHBOARD, SIGN_UP } = PATHS
 
 const SignIn = () => {
   const history = useHistory()
-  const [passwordShow, setPasswordShow] = useState(false)
+  const [passwordShow, setPasswordShow] = useState<boolean>(false)
   const { control, handleSubmit, formState: { errors } } = useForm<IUserData>()
   const {
     login,
@@ -97,7 +94,7 @@ const SignIn = () => {
               }}
             />
 
-            <FormErrorMessage>{errors?.email?.message }</FormErrorMessage>
+            <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
           </FormGroup>
 
           <FormGroup>
@@ -134,12 +131,12 @@ const SignIn = () => {
 
       <p>
         Não tem cadastro?
-        <a
-          href={SIGN_UP.url}
+        <Link
+          to={SIGN_UP.url}
           title="Clique aqui e cadastre-se"
         >
           Clique aqui
-        </a>
+        </Link>
       </p>
     </>
   )
