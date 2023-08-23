@@ -5,11 +5,11 @@ import { Route, Redirect } from 'react-router-dom'
 import InternalPagesTemplate from 'templates/InternalPages'
 
 import { auth } from 'helpers/utils/firebase'
-import { paths } from 'helpers/configs/paths'
+import { PATHS } from 'helpers/configs/paths'
 
 import { IPrivateRoute } from './types'
 
-const { SIGN_IN } = paths
+const { SIGN_IN } = PATHS
 
 export const PrivateRoute = ({ component: Component, ...rest }: IPrivateRoute) => {
   const [user] = useAuthState(auth)

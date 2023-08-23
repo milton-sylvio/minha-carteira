@@ -9,13 +9,13 @@
 // import App from './app.routes'
 // import Auth from './auth.routes'
 
-// const Routes: React.FC = () => { 
+// const Routes: React.FC = () => {
 //   const [user, loading] = useAuthState(auth)
 
 //   return (
 //     <BrowserRouter>
 //       {
-//         loading ? <UiLoading /> : (user ? <App /> : <Auth />) 
+//         loading ? <UiLoading /> : (user ? <App /> : <Auth />)
 //       }
 //     </BrowserRouter>
 //   )
@@ -32,9 +32,9 @@ import Dashboard from 'views/Dashboard'
 import List from 'views/List'
 import NewRegister from 'views/NewRegister'
 import SignIn from 'views/SignIn'
-import SignUp from 'views/Signup'
+import SignUp from 'views/SignUp'
 
-import { paths } from 'helpers/configs/paths'
+import { PATHS } from 'helpers/configs/paths'
 
 import { PrivateRoute } from './PrivateRoute'
 
@@ -44,7 +44,7 @@ const {
   NEW_REGISTER,
   SIGN_IN,
   SIGN_UP,
-} = paths
+} = PATHS
 
 const Routes = () => {
   return (

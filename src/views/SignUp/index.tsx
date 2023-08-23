@@ -6,8 +6,8 @@ import { useForm, Controller } from 'react-hook-form'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { 
-  FormContainer, 
+import {
+  FormContainer,
   FormErrorMessage,
   FormGroup,
   FormLabel,
@@ -15,33 +15,35 @@ import {
   UiInput
 } from 'components/UI'
 
-import { 
-  addDoc, 
-  auth, 
-  collection, 
-  createUserWithEmailAndPassword, 
-  db 
+import {
+  addDoc,
+  auth,
+  collection,
+  createUserWithEmailAndPassword,
+  db
 } from 'helpers/utils/firebase'
 
-import { paths } from 'helpers/configs/paths'
+import { PATHS } from 'helpers/configs/paths'
 
 import { IUserData } from './types'
-  
-const SignUp: React.FC = () => {
+
+const { DASHBOARD, SIGN_IN } = PATHS
+
+const SignUp = () => {
   const [user, loading] = useAuthState(auth)
   const history = useHistory()
-  const { control, handleSubmit, formState: { errors } } = useForm<IUserData>() 
+  const { control, handleSubmit, formState: { errors } } = useForm<IUserData>()
   const [passwordShow, setPasswordShow] = useState(false)
 
   useEffect(() => {
     if (loading) return
-    if (user) history.push(paths.DASHBOARD.url)
+    if (user) history.push(DASHBOARD.url)
   }, [user, loading, history])
 
   const toggleType = () => {
-    setPasswordShow(passwordShow ? false : true) 
+    setPasswordShow(passwordShow ? false : true)
   }
-  
+
   const registerWithEmailAndPassword = async (email, password, name, phone) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password)
@@ -54,7 +56,7 @@ const SignUp: React.FC = () => {
         email,
       })
 
-      history.push(paths?.DASHBOARD?.url)
+      history.push(DASHBOARD.url)
     } catch (err) {
       console.error(err)
       alert(err)
@@ -63,34 +65,34 @@ const SignUp: React.FC = () => {
 
   const onSubmit = values => {
     if (values.email && values.password && values.name && values.phone) {
-      registerWithEmailAndPassword(values.email, values.password, values.name, values.phone)      
+      registerWithEmailAndPassword(values.email, values.password, values.name, values.phone)
     }
   }
 
   const inputPassw = field => (
-    <UiInput 
-      className={errors?.password && 'error'} 
+    <UiInput
+      className={errors?.password && 'error'}
       icon={MdLock}
       id="passw"
-      type={passwordShow ? "text" : "password"} 
-      {...field} 
+      type={passwordShow ? "text" : "password"}
+      {...field}
     />
   )
 
   const inputPhone = field => (
-    <UiInput 
+    <UiInput
       icon={MdPhone}
       className={errors?.phone && 'error'}
       maskInput={MaskedInput}
       mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
       type="text"
       id="phone"
-      {...field} 
+      {...field}
     />
   )
 
   const inputName = field => (
-    <UiInput 
+    <UiInput
       className={errors?.name && 'error'}
       icon={MdPerson} {...field}
       id="name"
@@ -113,8 +115,8 @@ const SignUp: React.FC = () => {
               name="name"
               render={({ field }) => inputName(field)}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
               }}
             />
 
@@ -129,8 +131,8 @@ const SignUp: React.FC = () => {
               name="email"
               render={({ field }) => <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: 'Digite um email válido',
@@ -150,8 +152,8 @@ const SignUp: React.FC = () => {
               name="phone"
               render={({ field }) => inputPhone(field)}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
               }}
             />
 
@@ -170,8 +172,8 @@ const SignUp: React.FC = () => {
               name="password"
               render={({ field }) => inputPassw(field)}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
               }}
             />
 
@@ -187,9 +189,9 @@ const SignUp: React.FC = () => {
       </form>
 
       <p>
-        Já tem cadastro? 
-        <a 
-          href={paths.SIGN_IN.url} 
+        Já tem cadastro?
+        <a
+          href={SIGN_IN.url}
           title="Clique aqui para entrar"
         >
           Clique aqui.

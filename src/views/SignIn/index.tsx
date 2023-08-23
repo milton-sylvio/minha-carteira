@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { 
-  FormContainer, 
+import {
+  FormContainer,
   FormErrorMessage,
   FormGroup,
   FormLabel,
@@ -14,13 +14,13 @@ import {
 } from 'components/UI'
 
 import { auth, signInWithEmailAndPassword } from 'helpers/utils/firebase'
-import { paths } from 'helpers/configs/paths'
+import { PATHS } from 'helpers/configs/paths'
 
 import { useSignIn } from './useSignIn'
 
 import { IUserData } from './types'
 
-const { DASHBOARD } = paths
+const { DASHBOARD, SIGN_UP } = PATHS
 
 const SignIn = () => {
   const history = useHistory()
@@ -46,7 +46,7 @@ const SignIn = () => {
   }, [user, loading, history]);
 
   const toggleType = () => {
-    setPasswordShow(passwordShow ? false : true) 
+    setPasswordShow(passwordShow ? false : true)
   }
 
   const onSubmit = values => {
@@ -56,20 +56,20 @@ const SignIn = () => {
   }
 
   const inputPassw = field => (
-    <UiInput 
-      className={errors?.password && 'error'} 
+    <UiInput
+      className={errors?.password && 'error'}
       icon={MdLock}
       id="passw"
-      type={passwordShow ? "text" : "password"} 
-      {...field} 
+      type={passwordShow ? "text" : "password"}
+      {...field}
     />
   )
 
   const inputEmail = field => (
-    <UiInput 
-      className={errors?.email && 'error'} 
-      icon={MdEmail} 
-      {...field} 
+    <UiInput
+      className={errors?.email && 'error'}
+      icon={MdEmail}
+      {...field}
     />
   )
 
@@ -88,8 +88,8 @@ const SignIn = () => {
               name="email"
               render={({ field }) => inputEmail(field)}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: 'Digite um email válido',
@@ -112,14 +112,14 @@ const SignIn = () => {
               name="password"
               render={({ field }) => inputPassw(field)}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
               }}
             />
 
             <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
           </FormGroup>
-        
+
         <UiButton
           type="submit"
           icon=""
@@ -133,9 +133,9 @@ const SignIn = () => {
       </form>
 
       <p>
-        Não tem cadastro? 
-        <a 
-          href={paths.SIGN_UP.url}
+        Não tem cadastro?
+        <a
+          href={SIGN_UP.url}
           title="Clique aqui e cadastre-se"
         >
           Clique aqui

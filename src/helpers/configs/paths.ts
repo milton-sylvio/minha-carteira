@@ -1,4 +1,4 @@
-const paths = {
+export const PATHS = {
   SIGN_IN: {
     title: 'Entrar',
     url: '/',
@@ -29,5 +29,3 @@ const paths = {
     url: '/listagem/saidas',
   },
 }
-
-export { paths }

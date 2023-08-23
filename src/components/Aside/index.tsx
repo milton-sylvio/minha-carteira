@@ -9,56 +9,59 @@ import {
 } from 'react-icons/md'
 
 import { auth, signOut } from 'helpers/utils/firebase'
-import { paths } from 'helpers/configs/paths'
+import { PATHS } from 'helpers/configs/paths'
 
 import Logo from 'components/Logo'
 
 import { useMenuMobile } from 'hooks/menu'
 import { useTheme } from 'hooks/theme'
 
-import { 
-  Container, 
-  Header, 
-  MenuContainer, 
+import {
+  Container,
+  Header,
+  MenuContainer,
   MenuItem,
   MenuTitle,
   Toggle
 } from './styles'
 
-const Aside: React.FC = () => {
+const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN } = PATHS
+
+const Aside = () => {
+  const history = useHistory()
+  const { toggleTheme, theme } = useTheme()
+  const [ getTheme, setTheme ] = useState<boolean>(() => theme.mode === 'dark' ? true : false)
+  const { toggleMenu } = useMenuMobile()
+
   const menu = [
     {
-      path: paths.DASHBOARD.url,
-      text: paths.DASHBOARD.title,
+      path: DASHBOARD.url,
+      text: DASHBOARD.title,
       icon: <MdDashboard />,
-    }, 
+    },
     {
-      path: paths.NEW_REGISTER.url,
-      text: paths.NEW_REGISTER.title,
+      path: NEW_REGISTER.url,
+      text: NEW_REGISTER.title,
       icon: <MdNoteAdd />,
-    }, 
+    },
     {
-      path: paths.ENTRY.url,
-      text: paths.ENTRY.title,
+      path: ENTRY.url,
+      text: ENTRY.title,
       icon: <MdArrowUpward />,
-    }, 
+    },
     {
-      path: paths.OUTPUT.url,
-      text: paths.OUTPUT.title,
+      path: OUTPUT.url,
+      text: OUTPUT.title,
       icon: <MdArrowDownward />,
     },
   ]
 
-  const history = useHistory()
   const handleSignOut = event => {
     event.preventDefault()
     signOut(auth)
-    history.push(paths.SIGN_IN.url)
+    history.push(SIGN_IN.url)
   }
 
-  const { toggleTheme, theme } = useTheme()
-  const [ getTheme, setTheme ] = useState(() => theme.mode === 'dark' ? true : false)
-  const { toggleMenu } = useMenuMobile()
 
   const handleChangeTheme = () => {
     setTheme(!getTheme)
@@ -75,9 +78,9 @@ const Aside: React.FC = () => {
         <MenuTitle>Menu</MenuTitle>
         {
           menu.map(item => (
-            <MenuItem 
+            <MenuItem
               key={item.path}
-              href={item.path} 
+              href={item.path}
               className={
                 window.location.pathname === item.path
                 ? 'actived'
@@ -103,7 +106,7 @@ const Aside: React.FC = () => {
         labelRight="Dark"
         checked={getTheme}
         className="header"
-        onChange={handleChangeTheme} 
+        onChange={handleChangeTheme}
       />
 
     </Container>
