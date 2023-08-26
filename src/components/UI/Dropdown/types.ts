@@ -1,8 +1,8 @@
 export interface IDropdownProps {
   options: {
-    value: string | number,
-    label: string | number,
-  }[],
+    value: string | number
+    label: string | number
+  }[]
   defaultValue?: string | number
   id?: string
   required?: boolean

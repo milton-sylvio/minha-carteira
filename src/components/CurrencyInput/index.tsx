@@ -18,25 +18,17 @@ const defaultMaskOptions = {
   allowLeadingZeroes: true,
 }
 
-const CurrencyInput: React.FC<ICurrencyInput> = ({ 
-  inputmode = 'numeric',
+const CurrencyInput = ({
   typeInput = 'text',
-  maskOptions = {}, 
-  ...inputProps 
-}) => {
-
+  maskOptions,
+  ...inputProps
+}: ICurrencyInput) => {
   const currencyMask = createNumberMask({
     ...defaultMaskOptions,
-    ...maskOptions
+    ...maskOptions,
   })
-    
-  return (
-    <MaskedInput 
-      mask={currencyMask} 
-      type={typeInput}
-      {...inputProps}
-    />
-  )
+
+  return <MaskedInput mask={currencyMask} type={typeInput} {...inputProps} />
 }
 
 export default CurrencyInput

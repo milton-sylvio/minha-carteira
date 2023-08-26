@@ -4,7 +4,7 @@ import symbolLogo from 'assets/logo.svg'
 
 import { Container } from './styles'
 
-const Logo: React.FC = () => (
+const Logo = () => (
   <Container className="logo">
     <img src={symbolLogo} alt="Minha Carteira" />
 
@@ -12,6 +12,6 @@ const Logo: React.FC = () => (
       Minha <strong>Carteira</strong>
     </span>
   </Container>
-);
+)
 
-export default Logo;
+export default Logo

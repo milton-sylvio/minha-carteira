@@ -3,12 +3,12 @@ import React from 'react'
 import { Container } from './styles'
 import { IHistoryFinances } from './types'
 
-const HistoryFinances: React.FC<IHistoryFinances> = ({
+const HistoryFinances = ({
   borderColor,
   title,
   subtitle,
-  amount
-}) => (
+  amount,
+}: IHistoryFinances) => (
   <Container borderColor={borderColor}>
     <div>
       <span>{title}</span>

@@ -12,12 +12,12 @@ export const Container = styled.div`
   max-width: 350px;
 
   p {
-    font-size: ${ props => props.theme.general.fontSizes[0] };
-    margin-top: ${ props => props.theme.general.space[3] };
+    font-size: ${props => props.theme.general.fontSizes[0]};
+    margin-top: ${props => props.theme.general.space[3]};
     text-align: center;
 
     a {
-      margin-left: ${ props => props.theme.general.space[1] };
+      margin-left: ${props => props.theme.general.space[1]};
     }
   }
 `
@@ -35,17 +35,15 @@ export const ContainerForm = styled(Card)`
   padding: 30px;
 
   > h1 {
-    font-size: ${ props => props.theme.general.fontSizes[4] };
-    margin-bottom: ${ props => props.theme.general.space[4] };
-  
+    font-size: ${props => props.theme.general.fontSizes[4]};
+    margin-bottom: ${props => props.theme.general.space[4]};
+
     &:after {
       content: ''
-      background-color: ${ props => props.theme.general.colors.primary };
+      background-color: ${props => props.theme.general.colors.primary};
       display: block;
       height: 5px;
       width: 50px;
     }
   }
 `
-
-

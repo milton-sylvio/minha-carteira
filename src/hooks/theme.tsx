@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, ReactNode, useState, useContext } from 'react'
 
 import dark from 'styles/themes/dark'
 import light from 'styles/themes/light'
@@ -7,16 +7,16 @@ import strings from 'helpers/utils/strings'
 
 interface IThemeContext {
   toggleTheme(): void
-  theme: ITheme
+  theme: ThemeProps
 }
 
-interface ITheme {
+interface ThemeProps {
   mode: string
   general: {
     bordersRadius: {
       small: string
       normal: string
-      large: string 
+      large: string
       rounded: string
     }
     colors: {
@@ -34,7 +34,7 @@ interface ITheme {
     fontSizes: string[]
     fontWeights: {
       normal: number
-      bold: number    
+      bold: number
     }
     lineHeights: {
       condensedUltra: number
@@ -67,8 +67,12 @@ interface ITheme {
 
 const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
 
-const ThemeProvider: React.FC = ({ children }) => {
-  const [theme, setTheme] = useState<ITheme>(() => {
+interface IThemeProvider {
+  children: ReactNode
+}
+
+const ThemeProvider = ({ children }: IThemeProvider) => {
+  const [theme, setTheme] = useState<ThemeProps>(() => {
     const savedTheme = localStorage.getItem(strings.minhaCarteira)
 
     if (savedTheme) {
@@ -77,7 +81,7 @@ const ThemeProvider: React.FC = ({ children }) => {
       return dark
     }
   })
-  
+
   const toggleTheme = () => {
     const themeMode = theme.mode === 'dark' ? light : dark
     setTheme(themeMode)

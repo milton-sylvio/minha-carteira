@@ -1,5 +1,4 @@
 export interface ICurrencyInput {
-  inputmode?: string
   maskOptions?: {
     prefix: string
     suffix: string

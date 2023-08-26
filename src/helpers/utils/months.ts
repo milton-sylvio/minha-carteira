@@ -10,7 +10,7 @@ const months = [
   'Setembro',
   'Outubro',
   'Novembro',
-  'Dezembro'
+  'Dezembro',
 ]
 
 export default months

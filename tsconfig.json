@@ -18,16 +18,24 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "rootDir": "src",
     "baseUrl": "./src",
     "outDir": "./",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true
   },
   "files": [
     "src/styles/themes/styled.d.ts",
     "src/custom.d.ts"
   ],
-  "include": ["src", "src/custom.d.ts"],
-  "exclude": ["node_modules", "build"]
+  "include": [
+    "src",
+    "src/custom.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }

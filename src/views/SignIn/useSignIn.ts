@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
@@ -18,7 +17,7 @@ export const useSignIn = () => {
 
   const getError = (code: string) => {
     const type = {
-      'auth/user-not-found': 'Dados inválidos'
+      'auth/user-not-found': 'Dados inválidos',
     }
 
     return type[code] ?? ''
@@ -27,20 +26,20 @@ export const useSignIn = () => {
   const login = async (email, password) => {
     setLoader(true)
     setError('')
-  
+
     await signInWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-      console.log('Successfully signed in!', userCredential);
-    })
-    .catch (err => {
-      console.error('Erro no login > code:', err.code)
-      console.error('Erro no login > message:', err.message)
+      .then(userCredential => {
+        console.log('Successfully signed in!', userCredential)
+      })
+      .catch(err => {
+        console.error('Erro no login > code:', err.code)
+        console.error('Erro no login > message:', err.message)
 
-      const msg = getError(err.code)
+        const msg = getError(err.code)
 
-      setError(msg)
-    })
-    .finally(timeout)
+        setError(msg)
+      })
+      .finally(timeout)
   }
 
   return {

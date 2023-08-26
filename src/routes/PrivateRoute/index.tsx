@@ -5,13 +5,16 @@ import { Route, Redirect } from 'react-router-dom'
 import InternalPagesTemplate from 'templates/InternalPages'
 
 import { auth } from 'helpers/utils/firebase'
-import { paths } from 'helpers/configs/paths'
+import { PATHS } from 'helpers/configs/paths'
 
 import { IPrivateRoute } from './types'
 
-const { SIGN_IN } = paths
+const { SIGN_IN } = PATHS
 
-export const PrivateRoute = ({ component: Component, ...rest }: IPrivateRoute) => {
+export const PrivateRoute = ({
+  component: Component,
+  ...rest
+}: IPrivateRoute) => {
   const [user] = useAuthState(auth)
 
   return (
@@ -21,7 +24,9 @@ export const PrivateRoute = ({ component: Component, ...rest }: IPrivateRoute) =
         if (!user) {
           // not logged in so redirect to login page with the return url
           return (
-            <Redirect to={{ pathname: SIGN_IN.url, state: { from: props.location } }} />
+            <Redirect
+              to={{ pathname: SIGN_IN.url, state: { from: props.location } }}
+            />
           )
         }
 

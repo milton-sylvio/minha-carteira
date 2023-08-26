@@ -10,58 +10,49 @@ import {
 
 import formatCurrency from 'helpers/utils/formatCurrency'
 
-import { 
-  Container, 
-  Header,
-  Legends,
-  LegendItem
-} from './styles'
+import { Container, Header, Legends, LegendItem } from './styles'
 
 import { ILineBoxProps } from './types'
 
-export const LineBox: React.FC<ILineBoxProps> = ({
+export const LineBox = ({
   data,
   lineColorAmountEntry,
-  lineColorAmountOutput
-}) => (
+  lineColorAmountOutput,
+}: ILineBoxProps) => (
   <Container>
     <Header>
       <h2>Histórico de saldo</h2>
 
       <Legends>
-        <LegendItem className="entry">
-          Entradas
-        </LegendItem>
-        <LegendItem className="output">
-          Saídas
-        </LegendItem>
+        <LegendItem className="entry">Entradas</LegendItem>
+        <LegendItem className="output">Saídas</LegendItem>
       </Legends>
     </Header>
-  
+
     <ResponsiveContainer>
       <LineChart data={data} margin={{ right: 15, left: 15 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#cecece" />
         <XAxis dataKey="month" stroke="#cecece" />
-        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
-        <Line 
-          type="monotone"                
+        <Tooltip formatter={value => formatCurrency(Number(value))} />
+        <Line
+          type="monotone"
           dataKey="amountEntry"
           name="Entradas"
           stroke={lineColorAmountEntry}
           strokeWidth={5}
-          dot={{ r: 5}}
-          activeDot={{ r: 8}}
+          dot={{ r: 5 }}
+          activeDot={{ r: 8 }}
         />
-        <Line 
-          type="monotone"                
+        <Line
+          type="monotone"
           dataKey="amountOutput"
           name="Saídas"
           stroke={lineColorAmountOutput}
           strokeWidth={5}
-          dot={{ r: 5}}
-          activeDot={{ r: 8}}
+          dot={{ r: 5 }}
+          activeDot={{ r: 8 }}
         />
       </LineChart>
-    </ResponsiveContainer> 
+    </ResponsiveContainer>
   </Container>
 )

@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import { MdEmail, MdLock, } from 'react-icons/md'
-import { useHistory } from 'react-router-dom'
+import { MdEmail, MdLock } from 'react-icons/md'
+import { useHistory, Link } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
-import { 
-  FormContainer, 
+import {
+  FormContainer,
   FormErrorMessage,
   FormGroup,
   FormLabel,
   UiInput,
-  UiButton
+  UiButton,
 } from 'components/UI'
 
-import { auth, signInWithEmailAndPassword } from 'helpers/utils/firebase'
-import { paths } from 'helpers/configs/paths'
+import { PATHS } from 'helpers/configs/paths'
 
 import { useSignIn } from './useSignIn'
-
 import { IUserData } from './types'
 
-const { DASHBOARD } = paths
+const { DASHBOARD, SIGN_UP } = PATHS
 
 const SignIn = () => {
   const history = useHistory()
-  const [passwordShow, setPasswordShow] = useState(false)
-  const { control, handleSubmit, formState: { errors } } = useForm<IUserData>()
+  const [passwordShow, setPasswordShow] = useState<boolean>(false)
   const {
-    login,
-    loader,
-    error,
-    user,
-    loading,
-  } = useSignIn()
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserData>()
+  const { login, loader, error, user, loading } = useSignIn()
 
   useEffect(() => {
     if (loading) {
@@ -43,10 +38,10 @@ const SignIn = () => {
     if (user) {
       history.push(DASHBOARD.url)
     }
-  }, [user, loading, history]);
+  }, [user, loading, history])
 
   const toggleType = () => {
-    setPasswordShow(passwordShow ? false : true) 
+    setPasswordShow(passwordShow ? false : true)
   }
 
   const onSubmit = values => {
@@ -56,21 +51,17 @@ const SignIn = () => {
   }
 
   const inputPassw = field => (
-    <UiInput 
-      className={errors?.password && 'error'} 
+    <UiInput
+      className={errors?.password && 'error'}
       icon={MdLock}
       id="passw"
-      type={passwordShow ? "text" : "password"} 
-      {...field} 
+      type={passwordShow ? 'text' : 'password'}
+      {...field}
     />
   )
 
   const inputEmail = field => (
-    <UiInput 
-      className={errors?.email && 'error'} 
-      icon={MdEmail} 
-      {...field} 
-    />
+    <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />
   )
 
   return (
@@ -80,31 +71,29 @@ const SignIn = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer className="form-vertical">
           <FormGroup>
-            <FormLabel htmlFor="email">
-              E-mail
-            </FormLabel>
+            <FormLabel htmlFor="email">E-mail</FormLabel>
 
             <Controller
               name="email"
               render={({ field }) => inputEmail(field)}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: 'Digite um email válido',
-                }
+                },
               }}
             />
 
-            <FormErrorMessage>{errors?.email?.message }</FormErrorMessage>
+            <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
           </FormGroup>
 
           <FormGroup>
             <FormLabel htmlFor="passw">
               <span>Senha</span>
               <small onClick={toggleType}>
-                {passwordShow ? "Ocultar" : "Mostrar"}
+                {passwordShow ? 'Ocultar' : 'Mostrar'}
               </small>
             </FormLabel>
 
@@ -112,34 +101,31 @@ const SignIn = () => {
               name="password"
               render={({ field }) => inputPassw(field)}
               control={control}
-              rules={{ 
-                required: 'Campo obrigatório',  
+              rules={{
+                required: 'Campo obrigatório',
               }}
             />
 
             <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
           </FormGroup>
-        
-        <UiButton
-          type="submit"
-          icon=""
-          className="block"
-          isLoading={loader}
-          disabled={loader}
-        >
-          Acessar
-        </UiButton>
+
+          <UiButton
+            type="submit"
+            icon=""
+            className="block"
+            isLoading={loader}
+            disabled={loader}
+          >
+            Acessar
+          </UiButton>
         </FormContainer>
       </form>
 
       <p>
-        Não tem cadastro? 
-        <a 
-          href={paths.SIGN_UP.url}
-          title="Clique aqui e cadastre-se"
-        >
+        Não tem cadastro?
+        <Link to={SIGN_UP.url} title="Clique aqui e cadastre-se">
           Clique aqui
-        </a>
+        </Link>
       </p>
     </>
   )

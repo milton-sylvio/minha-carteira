@@ -1,14 +1,18 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, ReactNode, useState, useContext } from 'react'
 
 interface IMenuMobile {
   toggleMenu: boolean
   handleToggleMenu(): void
 }
 
+interface IMenuMobileProvider {
+  children: ReactNode
+}
+
 const MenuMobileContext = createContext<IMenuMobile>({} as IMenuMobile)
 
-const MenuMobileProvider: React.FC = ({ children }) => {
-  const [ toggleMenu, setToggleMenu ] = useState(false)
+const MenuMobileProvider = ({ children }: IMenuMobileProvider) => {
+  const [toggleMenu, setToggleMenu] = useState(false)
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu)
   }
