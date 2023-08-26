@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { MdEmail, MdLock, } from 'react-icons/md'
+import { MdEmail, MdLock } from 'react-icons/md'
 import { useHistory, Link } from 'react-router-dom'
 import { useForm, Controller } from 'react-hook-form'
 
@@ -9,7 +9,7 @@ import {
   FormGroup,
   FormLabel,
   UiInput,
-  UiButton
+  UiButton,
 } from 'components/UI'
 
 import { PATHS } from 'helpers/configs/paths'
@@ -22,14 +22,12 @@ const { DASHBOARD, SIGN_UP } = PATHS
 const SignIn = () => {
   const history = useHistory()
   const [passwordShow, setPasswordShow] = useState<boolean>(false)
-  const { control, handleSubmit, formState: { errors } } = useForm<IUserData>()
   const {
-    login,
-    loader,
-    error,
-    user,
-    loading,
-  } = useSignIn()
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserData>()
+  const { login, loader, error, user, loading } = useSignIn()
 
   useEffect(() => {
     if (loading) {
@@ -40,7 +38,7 @@ const SignIn = () => {
     if (user) {
       history.push(DASHBOARD.url)
     }
-  }, [user, loading, history]);
+  }, [user, loading, history])
 
   const toggleType = () => {
     setPasswordShow(passwordShow ? false : true)
@@ -57,17 +55,13 @@ const SignIn = () => {
       className={errors?.password && 'error'}
       icon={MdLock}
       id="passw"
-      type={passwordShow ? "text" : "password"}
+      type={passwordShow ? 'text' : 'password'}
       {...field}
     />
   )
 
   const inputEmail = field => (
-    <UiInput
-      className={errors?.email && 'error'}
-      icon={MdEmail}
-      {...field}
-    />
+    <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />
   )
 
   return (
@@ -77,9 +71,7 @@ const SignIn = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer className="form-vertical">
           <FormGroup>
-            <FormLabel htmlFor="email">
-              E-mail
-            </FormLabel>
+            <FormLabel htmlFor="email">E-mail</FormLabel>
 
             <Controller
               name="email"
@@ -90,7 +82,7 @@ const SignIn = () => {
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: 'Digite um email válido',
-                }
+                },
               }}
             />
 
@@ -101,7 +93,7 @@ const SignIn = () => {
             <FormLabel htmlFor="passw">
               <span>Senha</span>
               <small onClick={toggleType}>
-                {passwordShow ? "Ocultar" : "Mostrar"}
+                {passwordShow ? 'Ocultar' : 'Mostrar'}
               </small>
             </FormLabel>
 
@@ -117,24 +109,21 @@ const SignIn = () => {
             <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
           </FormGroup>
 
-        <UiButton
-          type="submit"
-          icon=""
-          className="block"
-          isLoading={loader}
-          disabled={loader}
-        >
-          Acessar
-        </UiButton>
+          <UiButton
+            type="submit"
+            icon=""
+            className="block"
+            isLoading={loader}
+            disabled={loader}
+          >
+            Acessar
+          </UiButton>
         </FormContainer>
       </form>
 
       <p>
         Não tem cadastro?
-        <Link
-          to={SIGN_UP.url}
-          title="Clique aqui e cadastre-se"
-        >
+        <Link to={SIGN_UP.url} title="Clique aqui e cadastre-se">
           Clique aqui
         </Link>
       </p>

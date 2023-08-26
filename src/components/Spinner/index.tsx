@@ -1,7 +1,7 @@
 import React from 'react'
 import { Bullet, Container } from './styles'
 
-const Spinner: React.FC = () => (
+const Spinner = () => (
   <Container>
     <Bullet />
     <Bullet className="middle" />

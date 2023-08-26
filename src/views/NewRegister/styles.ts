@@ -16,7 +16,7 @@ export const Forms = styled.form`
     margin-left: 0;
   }
 
-  @media(max-width: ${ props => props.theme.general.sizes.small }) {
+  @media (max-width: ${props => props.theme.general.sizes.small}) {
     button {
       width: 100%;
     }
@@ -37,7 +37,7 @@ export const FormContainer = styled.div`
     align-items: flex-end;
   }
 
-  @media(max-width: ${ props => props.theme.general.sizes.small }) {
+  @media (max-width: ${props => props.theme.general.sizes.small}) {
     flex-direction: column;
 
     > div {
@@ -47,11 +47,12 @@ export const FormContainer = styled.div`
 `
 
 export const FormGroup = styled.div`
-  padding:  ${ props => props.theme.general.space[0] } ${ props => props.theme.general.space[1] };
-  margin-bottom: ${ props => props.theme.general.space[3] };
+  padding: ${props => props.theme.general.space[0]}
+    ${props => props.theme.general.space[1]};
+  margin-bottom: ${props => props.theme.general.space[3]};
 `
 
 export const FormLabel = styled.label`
   display: flex;
-  margin-bottom: ${ props => props.theme.general.space[1] };
+  margin-bottom: ${props => props.theme.general.space[1]};
 `

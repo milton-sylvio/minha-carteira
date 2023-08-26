@@ -20,45 +20,66 @@ import { colors } from 'styles/themes/general'
 
 import { Container, Content, ContainerColorsCards } from './styles'
 
-const Dashboard: React.FC = () => {
+const Dashboard = () => {
   const dateNow = new Date()
-  
-  const [monthSelected, setMonthSelected] = useState<number>(dateNow.getMonth() + 1)
-  const [yearSelected, setYearSelected] = useState<number>(dateNow.getFullYear())
 
-  const months = useMemo(() => {
-    return monthsList.map((month, index) => {
-      return {
+  const [monthSelected, setMonthSelected] = useState<number>(
+    dateNow.getMonth() + 1,
+  )
+  const [yearSelected, setYearSelected] = useState<number>(
+    dateNow.getFullYear(),
+  )
+
+  const months = useMemo(
+    () =>
+      monthsList.map((month, index) => ({
         value: index + 1,
         label: month,
-      }
-    })
-  }, [])
+      })),
+    [],
+  )
 
   const years = useMemo(() => {
-    let uniqueYears: number[] = [];
-
-    [...expenses, ...gains].forEach(item => {
-      const date = new Date(item.date)
+    const uniqueYears: number[] = []
+    ;[...expenses, ...gains].forEach(item => {
+      const date = new Date(item?.date || '')
       const year = date.getFullYear()
 
       if (!uniqueYears.includes(year)) {
-        uniqueYears.push(year);
+        uniqueYears.push(year)
       }
     })
 
-    return uniqueYears.map(year => {
-      return {
-        value: year,
-        label: year,
-      }
-    })
+    return uniqueYears.map(year => ({
+      value: year,
+      label: year,
+    }))
   }, [])
 
   const totalExpenses = useMemo(() => {
-    let total: number = 0;
+    let total = 0
 
     expenses.forEach(item => {
+      const date = new Date(item?.date || '')
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
+
+      if (month === monthSelected && year === yearSelected) {
+        try {
+          total += Number(item?.amount)
+        } catch (error) {
+          throw new Error(`Valor inválido: ${error}`)
+        }
+      }
+    })
+
+    return total
+  }, [monthSelected, yearSelected])
+
+  const totalGains = useMemo(() => {
+    let total = 0
+
+    gains.forEach(item => {
       const date = new Date(item.date)
       const year = date.getFullYear()
       const month = date.getMonth() + 1
@@ -75,29 +96,10 @@ const Dashboard: React.FC = () => {
     return total
   }, [monthSelected, yearSelected])
 
-  const totalGains = useMemo(() => {
-    let total: number = 0;
-
-    gains.forEach(item => {
-      const date = new Date(item.date);
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1;
-
-      if (month === monthSelected && year === yearSelected) {
-        try {
-          total += Number(item.amount);
-        } catch (error) {
-          throw new Error(`Valor inválido: ${error}`);
-        }
-      }
-    })
-
-    return total;
-  }, [monthSelected, yearSelected])
-
-  const totalBalance = useMemo(() => {
-    return totalGains - totalExpenses
-  }, [totalGains, totalExpenses])
+  const totalBalance = useMemo(
+    () => totalGains - totalExpenses,
+    [totalGains, totalExpenses],
+  )
 
   const message = useMemo(() => {
     if (totalBalance < 0) {
@@ -107,36 +109,36 @@ const Dashboard: React.FC = () => {
         footerTxt: 'Verifique seus gastos e tente economizar.',
         icon: sadIcon,
       }
-    } else if (totalBalance === 0 && totalExpenses === 0) {
+    }
+    if (totalBalance === 0 && totalExpenses === 0) {
       return {
         title: 'Opssssssss...!',
         description: 'Neste mês, não hã registros de entradas e saídas!',
         footerTxt: 'Parece que nesse mês não há registros.',
         icon: opsIcon,
       }
-    } else if (totalBalance === 0) {
+    }
+    if (totalBalance === 0) {
       return {
         title: 'Ufaaaa!',
         description: 'Neste mês, você gastou exatamente o que ganhou!',
         footerTxt: 'Tenha cuidado no próximo mês.',
         icon: opsIcon,
       }
-    } else {
-      return {
-        title:" Muito bem!",
-        description: "Sua carteira está positiva!",
-        footerTxt:"Continue assim. Considere investir o seu saldo.",
-        icon: happyIcon,
-      }
     }
-
+    return {
+      title: ' Muito bem!',
+      description: 'Sua carteira está positiva!',
+      footerTxt: 'Continue assim. Considere investir o seu saldo.',
+      icon: happyIcon,
+    }
   }, [totalBalance, totalExpenses])
-  
-  const relationExpensesVersusGains = useMemo(() => {
-    const total = totalGains + totalExpenses;
 
-    const gainsPercent = (totalGains / total) * 100;
-    const expensesPercent = (totalExpenses / total) * 100;
+  const relationExpensesVersusGains = useMemo(() => {
+    const total = totalGains + totalExpenses
+
+    const gainsPercent = (totalGains / total) * 100
+    const expensesPercent = (totalExpenses / total) * 100
 
     const data = [
       {
@@ -144,94 +146,104 @@ const Dashboard: React.FC = () => {
         value: totalGains,
         percent: Number(gainsPercent.toFixed(1)) | 0,
         color: colors.success,
-        type: 'entry'
+        type: 'entry',
       },
       {
         name: 'Saídas',
         value: totalExpenses,
         percent: Number(expensesPercent.toFixed(1)) | 0,
         color: colors.primary,
-        type: 'output'
+        type: 'output',
       },
     ]
 
-    return data;
+    return data
   }, [totalGains, totalExpenses])
-  
-  const historyData = useMemo(() => {
-    return monthsList.map((_, month) => {
-       let amountEntry = 0;
 
-       gains.forEach(gain => {
-         const date = new Date(gain.date)
-         const gainMonth = date.getMonth()
-         const gainYear = date.getFullYear()
+  const historyData = useMemo(
+    () =>
+      monthsList
+        .map((_, month) => {
+          let amountEntry = 0
 
-         if (gainMonth === month && gainYear === yearSelected) {
-          try {
-            amountEntry += Number(gain.amount)
-          } catch {
-            throw new Error('O valor de entrada é inválido, por favor, verifique o valor')
+          gains.forEach(gain => {
+            const date = new Date(gain.date)
+            const gainMonth = date.getMonth()
+            const gainYear = date.getFullYear()
+
+            if (gainMonth === month && gainYear === yearSelected) {
+              try {
+                amountEntry += Number(gain.amount)
+              } catch {
+                throw new Error(
+                  'O valor de entrada é inválido, por favor, verifique o valor',
+                )
+              }
+            }
+          })
+
+          let amountOutput = 0
+
+          expenses.forEach(expense => {
+            const date = new Date(expense?.date || '')
+            const expenseMonth = date.getMonth()
+            const expenseYear = date.getFullYear()
+
+            if (expenseMonth === month && expenseYear === yearSelected) {
+              try {
+                amountOutput += Number(expense?.amount)
+              } catch {
+                throw new Error(
+                  'O valor de saída é inválido, por favor, verifique o valor',
+                )
+              }
+            }
+          })
+
+          return {
+            monthNumber: month,
+            month: monthsList[month].substr(0, 3),
+            amountEntry,
+            amountOutput,
           }
-         }
-       })
+        })
+        .filter(item => {
+          const currentMonth = new Date().getMonth()
+          const currentYear = new Date().getFullYear()
+          return (
+            (yearSelected === currentYear &&
+              item.monthNumber <= currentMonth) ||
+            yearSelected < currentYear
+          )
+        }),
+    [yearSelected],
+  )
 
-       let amountOutput = 0
-
-       expenses.forEach(expense => {
-         const date = new Date(expense.date)
-         const expenseMonth = date.getMonth()
-         const expenseYear = date.getFullYear()
-
-         if (expenseMonth === month && expenseYear === yearSelected) {
-          try {
-            amountOutput += Number(expense.amount)
-          } catch {
-            throw new Error('O valor de saída é inválido, por favor, verifique o valor');
-          }
-         }
-       })
-
-       return {
-        monthNumber: month,
-        month: monthsList[month].substr(0, 3),
-        amountEntry,
-        amountOutput
-}
-    })
-    .filter(item => {
-      const currentMonth = new Date().getMonth();
-      const currentYear = new Date().getFullYear();
-      return (yearSelected === currentYear && item.monthNumber <= currentMonth) || (yearSelected < currentYear)
-    })
-
-  }, [yearSelected]);
-  
   const relationExpensevesRecurrentVersusEventual = useMemo(() => {
-    let amountRecurrent = 0;
-    let amountEventual = 0;
+    let amountRecurrent = 0
+    let amountEventual = 0
 
-    expenses.filter(expense => {
-      const date = new Date(expense.date)
-      const year = date.getFullYear()
-      const month = date.getMonth() + 1
+    expenses
+      .filter(expense => {
+        const date = new Date(expense?.date || '')
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1
 
-      return month === monthSelected && year === yearSelected
-    })
-    .forEach(expense => {
-      if (expense.frequency === 'recorrente') {
-        return amountRecurrent += Number(expense.amount)
-      }
+        return month === monthSelected && year === yearSelected
+      })
+      .forEach(expense => {
+        if (expense?.frequency === 'recorrente') {
+          return (amountRecurrent += Number(expense?.amount))
+        }
 
-      if (expense.frequency === 'eventual') {
-        return amountEventual += Number(expense.amount)
-      }
-    })
+        if (expense?.frequency === 'eventual') {
+          return (amountEventual += Number(expense?.amount))
+        }
+      })
 
-    const total = amountRecurrent + amountEventual;
-    const calcPercents = (value, totalValue) => {
-      return Number(((value / totalValue) * 100).toFixed(1)) | 0
-    }
+    const total = amountRecurrent + amountEventual
+    const calcPercents = (value, totalValue) =>
+      Number(((value / totalValue) * 100).toFixed(1)) | 0
     const recurrentPercent = calcPercents(amountRecurrent, total)
     const eventualPercent = calcPercents(amountEventual, total)
 
@@ -259,28 +271,28 @@ const Dashboard: React.FC = () => {
     let amountRecurrent = 0
     let amountEventual = 0
 
-    gains.filter(gain => {
-      const date = new Date(gain.date)
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1
+    gains
+      .filter(gain => {
+        const date = new Date(gain.date)
+        const year = date.getFullYear()
+        const month = date.getMonth() + 1
 
-      return month === monthSelected && year === yearSelected;
-    })
-    .forEach(gain => {
-      if (gain.frequency === 'recorrente') {
-        return amountRecurrent += Number(gain.amount)
-      }
+        return month === monthSelected && year === yearSelected
+      })
+      .forEach(gain => {
+        if (gain.frequency === 'recorrente') {
+          return (amountRecurrent += Number(gain.amount))
+        }
 
-      if (gain.frequency === 'eventual') {
-        return amountEventual += Number(gain.amount)
-      }
-    })
+        if (gain.frequency === 'eventual') {
+          return (amountEventual += Number(gain.amount))
+        }
+      })
 
-    const calcPercents = (value, totalValue) => {
-      return Number(((value / totalValue) * 100).toFixed(1)) | 0
-    }
+    const calcPercents = (value, totalValue) =>
+      Number(((value / totalValue) * 100).toFixed(1)) | 0
 
-    const total = amountRecurrent + amountEventual;
+    const total = amountRecurrent + amountEventual
     const recurrentPercent = calcPercents(amountRecurrent, total)
     const eventualPercent = calcPercents(amountEventual, total)
 
@@ -303,18 +315,20 @@ const Dashboard: React.FC = () => {
       },
     ]
   }, [monthSelected, yearSelected])
- 
-  const handleMonthSelected = (month: String) => {
+
+  const handleMonthSelected = (month: string) => {
     try {
       setMonthSelected(Number(month))
     } catch (error) {
-      throw new Error(`Valor inválido do mês. Aceito somente de 0 - 23: ${error}`)
+      throw new Error(
+        `Valor inválido do mês. Aceito somente de 0 - 23: ${error}`,
+      )
     }
   }
 
-  const handleYearSelected = (year: String) => {
+  const handleYearSelected = (year: string) => {
     try {
-      setYearSelected(Number(year ))
+      setYearSelected(Number(year))
     } catch (error) {
       throw new Error('Valor inválido do mês. Aceito somente de 0 - 23')
     }
@@ -323,35 +337,35 @@ const Dashboard: React.FC = () => {
   return (
     <Container>
       <ContentHeader title="Dashboard">
-        <UiDropdown 
-          options={months} 
-          onChange={(e) => handleMonthSelected(e.target.value)}
+        <UiDropdown
+          options={months}
+          onChange={e => handleMonthSelected(e.target.value)}
           defaultValue={monthSelected}
         />
-        <UiDropdown 
-          options={years} 
-          onChange={(e) => handleYearSelected(e.target.value)}
+        <UiDropdown
+          options={years}
+          onChange={e => handleYearSelected(e.target.value)}
           defaultValue={yearSelected}
         />
       </ContentHeader>
 
       <Content>
         <ContainerColorsCards>
-          <ColorCard 
+          <ColorCard
             title="saldo"
             amount={totalBalance}
             description="atualizado com base nas entradas e saídas"
             icon="dollar"
             color="balance"
           />
-          <ColorCard 
+          <ColorCard
             title="entradas"
             amount={totalGains}
             description="última movimentação em 18/07/2020 às 11h40"
             icon="arrowUp"
             color="entry"
           />
-          <ColorCard 
+          <ColorCard
             title="saídas"
             amount={totalExpenses}
             description="última movimentação em 18/07/2020 às 11h40"
@@ -359,7 +373,7 @@ const Dashboard: React.FC = () => {
             color="output"
           />
         </ContainerColorsCards>
-        
+
         <MessageCard
           title={message.title}
           description={message.description}
@@ -369,18 +383,15 @@ const Dashboard: React.FC = () => {
 
         <PieBox data={relationExpensesVersusGains} />
 
-        <LineBox 
-          data={historyData} 
-          lineColorAmountEntry="#1bc5bd" 
-          lineColorAmountOutput="#8950fc" 
+        <LineBox
+          data={historyData}
+          lineColorAmountEntry="#1bc5bd"
+          lineColorAmountOutput="#8950fc"
         />
 
-        <BarBox 
-          title="Entradas" 
-          data={relationGainsRecurrentVersusEventual}
-        />
-        <BarBox 
-          title="Saídas" 
+        <BarBox title="Entradas" data={relationGainsRecurrentVersusEventual} />
+        <BarBox
+          title="Saídas"
           data={relationExpensevesRecurrentVersusEventual}
         />
       </Content>

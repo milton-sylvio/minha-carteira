@@ -3,29 +3,24 @@ import React from 'react'
 import { Container } from './styles'
 import { IDropdownProps } from './types'
 
-export const UiDropdown: React.FC<IDropdownProps> = ({ 
-  options, 
-  id, 
+export const UiDropdown = ({
+  options,
+  id,
   required,
   defaultValue,
-  onChange, 
-}) => (
+  onChange,
+}: IDropdownProps) => (
   <Container
-      id={id}
-      onChange={onChange}
-      defaultValue={defaultValue}
-      required={required}
-      className="dropdown"
-    >
-      {
-        options.map(option => (
-        <option 
-          key={option.value}
-          value={option.value}
-        >
-          { option.label }
-        </option>
-        ))
-      }
+    id={id}
+    onChange={onChange}
+    defaultValue={defaultValue}
+    required={required}
+    className="dropdown"
+  >
+    {options.map(option => (
+      <option key={option.value} value={option.value}>
+        {option.label}
+      </option>
+    ))}
   </Container>
 )

@@ -5,7 +5,7 @@ import {
   MdArrowDownward,
   MdArrowUpward,
   MdExitToApp,
-  MdNoteAdd
+  MdNoteAdd,
 } from 'react-icons/md'
 
 import { auth, signOut } from 'helpers/utils/firebase'
@@ -22,7 +22,7 @@ import {
   MenuContainer,
   MenuItem,
   MenuTitle,
-  Toggle
+  Toggle,
 } from './styles'
 
 const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN } = PATHS
@@ -30,7 +30,9 @@ const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN } = PATHS
 const Aside = () => {
   const history = useHistory()
   const { toggleTheme, theme } = useTheme()
-  const [ getTheme, setTheme ] = useState<boolean>(() => theme.mode === 'dark' ? true : false)
+  const [getTheme, setTheme] = useState<boolean>(() =>
+    theme.mode === 'dark' ? true : false,
+  )
   const { toggleMenu } = useMenuMobile()
 
   const menu = [
@@ -62,7 +64,6 @@ const Aside = () => {
     history.push(SIGN_IN.url)
   }
 
-
   const handleChangeTheme = () => {
     setTheme(!getTheme)
     toggleTheme()
@@ -76,26 +77,18 @@ const Aside = () => {
 
       <MenuContainer>
         <MenuTitle>Menu</MenuTitle>
-        {
-          menu.map(item => (
-            <MenuItem
-              key={item.path}
-              href={item.path}
-              className={
-                window.location.pathname === item.path
-                ? 'actived'
-                : ''
-              }
-              title={item.text}>
-              { item.icon }
-              {item.text}
-            </MenuItem>
-          ))
-        }
-        <MenuItem
-          title="Sair"
-          onClick={handleSignOut}
-        >
+        {menu.map(item => (
+          <MenuItem
+            key={item.path}
+            href={item.path}
+            className={window.location.pathname === item.path ? 'actived' : ''}
+            title={item.text}
+          >
+            {item.icon}
+            {item.text}
+          </MenuItem>
+        ))}
+        <MenuItem title="Sair" onClick={handleSignOut}>
           <MdExitToApp />
           Sair
         </MenuItem>
@@ -108,7 +101,6 @@ const Aside = () => {
         className="header"
         onChange={handleChangeTheme}
       />
-
     </Container>
   )
 }

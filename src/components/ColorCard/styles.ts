@@ -3,9 +3,9 @@ import { rgba } from 'polished'
 
 export const Container = styled.div`
   align-items: flex-start;
-  border-radius: .25rem ;
-  box-shadow: 0 4px 6px ${ props => rgba(props.theme.general.colors.black, 0.06 ) };
-  color: ${ props => props.theme.general.colors.white };
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px ${props => rgba(props.theme.general.colors.black, 0.06)};
+  color: ${props => props.theme.general.colors.white};
   display: flex;
   flex-direction: column;
   height: 160px;
@@ -15,15 +15,15 @@ export const Container = styled.div`
   width: 100%;
 
   &.balance {
-    background-color: ${ props => props.theme.general.colors.danger };
+    background-color: ${props => props.theme.general.colors.danger};
   }
   &.entry {
-    background-color: ${ props => props.theme.general.colors.success };
+    background-color: ${props => props.theme.general.colors.success};
   }
   &.output {
-    background-color: ${ props => props.theme.general.colors.primary };
+    background-color: ${props => props.theme.general.colors.primary};
   }
-  
+
   &:nth-child(2) {
     margin-left: 30px;
     margin-right: 30px;
@@ -31,11 +31,11 @@ export const Container = styled.div`
 
   > span {
     font-weight: 700;
-    font-size: ${ props => props.theme.general.fontSizes[3] };
+    font-size: ${props => props.theme.general.fontSizes[3]};
   }
 
   > strong {
-    font-size: ${ props => props.theme.general.fontSizes[5] };
+    font-size: ${props => props.theme.general.fontSizes[5]};
   }
 
   > small {
@@ -46,13 +46,13 @@ export const Container = styled.div`
 
   > img {
     height: 110%;
-    opacity: .4;
+    opacity: 0.4;
     position: absolute;
     right: -30px;
     top: -15px;
   }
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
-    margin-bottom: ${ props => props.theme.general.space[3] };
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
+    margin-bottom: ${props => props.theme.general.space[3]};
   }
 `

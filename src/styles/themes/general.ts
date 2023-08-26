@@ -1,16 +1,8 @@
 const colors = {
   black: '#343a40',
   white: '#fff',
-  gray: [
-    '#f5f6f8',
-    '#e1e4e8',
-    '#bfbfbf',
-  ],
-  blue: [
-    '#313862',
-    '#252a48',
-    '#1b1f38',
-  ],
+  gray: ['#f5f6f8', '#e1e4e8', '#bfbfbf'],
+  blue: ['#313862', '#252a48', '#1b1f38'],
   primary: '#8950fc',
   secondary: '#f64e60',
   success: '#1bc5bd',
@@ -22,7 +14,7 @@ const colors = {
 const bordersRadius = {
   small: '2px',
   normal: '4px',
-  large: '8px', 
+  large: '8px',
   rounded: '50%',
 }
 
@@ -34,7 +26,7 @@ const fontSizes = [
   '24px',
   '32px',
   '40px',
-  '48px'
+  '48px',
 ]
 
 const fontWeights = {
@@ -64,7 +56,7 @@ const space = [
   '80px',
   '96px',
   '112px',
-  '128px'
+  '128px',
 ]
 
 const sizes = {

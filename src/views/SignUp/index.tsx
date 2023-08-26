@@ -12,7 +12,7 @@ import {
   FormGroup,
   FormLabel,
   UiButton,
-  UiInput
+  UiInput,
 } from 'components/UI'
 
 import {
@@ -20,7 +20,7 @@ import {
   auth,
   collection,
   createUserWithEmailAndPassword,
-  db
+  db,
 } from 'helpers/utils/firebase'
 
 import { PATHS } from 'helpers/configs/paths'
@@ -32,7 +32,11 @@ const { DASHBOARD, SIGN_IN } = PATHS
 const SignUp = () => {
   const [user, loading] = useAuthState(auth)
   const history = useHistory()
-  const { control, handleSubmit, formState: { errors } } = useForm<IUserData>()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IUserData>()
   const [passwordShow, setPasswordShow] = useState(false)
 
   useEffect(() => {
@@ -65,7 +69,12 @@ const SignUp = () => {
 
   const onSubmit = values => {
     if (values.email && values.password && values.name && values.phone) {
-      registerWithEmailAndPassword(values.email, values.password, values.name, values.phone)
+      registerWithEmailAndPassword(
+        values.email,
+        values.password,
+        values.name,
+        values.phone,
+      )
     }
   }
 
@@ -74,7 +83,7 @@ const SignUp = () => {
       className={errors?.password && 'error'}
       icon={MdLock}
       id="passw"
-      type={passwordShow ? "text" : "password"}
+      type={passwordShow ? 'text' : 'password'}
       {...field}
     />
   )
@@ -84,7 +93,23 @@ const SignUp = () => {
       icon={MdPhone}
       className={errors?.phone && 'error'}
       maskInput={MaskedInput}
-      mask={['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      mask={[
+        '(',
+        /\d/,
+        /\d/,
+        ')',
+        ' ',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        '-',
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+      ]}
       type="text"
       id="phone"
       {...field}
@@ -94,7 +119,8 @@ const SignUp = () => {
   const inputName = field => (
     <UiInput
       className={errors?.name && 'error'}
-      icon={MdPerson} {...field}
+      icon={MdPerson}
+      {...field}
       id="name"
       type="text"
     />
@@ -107,9 +133,7 @@ const SignUp = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer className="form-vertical">
           <FormGroup>
-            <FormLabel htmlFor="name">
-              Nome completo
-            </FormLabel>
+            <FormLabel htmlFor="name">Nome completo</FormLabel>
 
             <Controller
               name="name"
@@ -120,33 +144,35 @@ const SignUp = () => {
               }}
             />
 
-            <FormErrorMessage>{errors?.name?.message }</FormErrorMessage>
+            <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
           </FormGroup>
 
           <FormGroup>
-            <FormLabel htmlFor="email">
-              E-mail
-            </FormLabel>
+            <FormLabel htmlFor="email">E-mail</FormLabel>
             <Controller
               name="email"
-              render={({ field }) => <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />}
+              render={({ field }) => (
+                <UiInput
+                  className={errors?.email && 'error'}
+                  icon={MdEmail}
+                  {...field}
+                />
+              )}
               control={control}
               rules={{
                 required: 'Campo obrigatório',
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                   message: 'Digite um email válido',
-                }
+                },
               }}
             />
 
-            <FormErrorMessage>{errors?.email?.message }</FormErrorMessage>
+            <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
           </FormGroup>
 
           <FormGroup>
-            <FormLabel htmlFor="phone">
-              Telefone
-            </FormLabel>
+            <FormLabel htmlFor="phone">Telefone</FormLabel>
 
             <Controller
               name="phone"
@@ -164,7 +190,7 @@ const SignUp = () => {
             <FormLabel htmlFor="passw">
               <span>Senha</span>
               <small onClick={toggleType}>
-                {passwordShow ? "Ocultar" : "Mostrar"}
+                {passwordShow ? 'Ocultar' : 'Mostrar'}
               </small>
             </FormLabel>
 
@@ -190,10 +216,7 @@ const SignUp = () => {
 
       <p>
         Já tem cadastro?
-        <a
-          href={SIGN_IN.url}
-          title="Clique aqui para entrar"
-        >
+        <a href={SIGN_IN.url} title="Clique aqui para entrar">
           Clique aqui.
         </a>
       </p>

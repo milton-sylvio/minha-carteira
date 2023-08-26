@@ -17,11 +17,11 @@ const animate = keyframes`
 
 export const Container = styled(Card)`
   align-content: space-between;
-  animation: ${ animate } 0.5s;
+  animation: ${animate} 0.5s;
   height: 350px;
   flex-direction: column;
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
     height: 100%;
     min-height: 250px;
   }
@@ -31,13 +31,13 @@ export const Header = styled.header`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${ props => props.theme.general.space[6] };
+  margin-bottom: ${props => props.theme.general.space[6]};
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
     flex-direction: column;
 
     h2 {
-      margin-bottom: ${ props => props.theme.general.space[3] };
+      margin-bottom: ${props => props.theme.general.space[3]};
     }
   }
 `
@@ -51,7 +51,7 @@ export const LegendItem = styled.li`
   position: relative;
 
   &:last-child {
-    margin-left: ${ props => props.theme.general.space[4] };
+    margin-left: ${props => props.theme.general.space[4]};
   }
 
   &:before {
@@ -65,11 +65,11 @@ export const LegendItem = styled.li`
   }
 
   &.entry:before  {
-    background-color: ${ props => props.theme.general.colors.primary };
+    background-color: ${props => props.theme.general.colors.primary};
   }
   &.output:before  {
-    background-color: ${ props => props.theme.general.colors.success };
+    background-color: ${props => props.theme.general.colors.success};
   }
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {}
+  @media(max-width: ${props => props.theme.general.sizes.medium}) {}
 `

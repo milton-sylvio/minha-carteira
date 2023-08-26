@@ -1,37 +1,33 @@
 import React from 'react'
-import { 
+import {
   Container,
   ToggleSwitchContainer,
   ToggleSwitchLabel,
   ToggleSwitchSpan,
-  ToggleSwitchInput 
+  ToggleSwitchInput,
 } from './styles'
 
 import { IToggleSwitchProps } from './types'
 
-export const UiToggleSwitch: React.FC<IToggleSwitchProps> = ({ 
-  checked, 
+export const UiToggleSwitch = ({
+  checked,
   labelLeft,
   labelRight,
   className,
-  onChange, 
-}) => (
+  onChange,
+}: IToggleSwitchProps) => (
   <Container className={className}>
-    <ToggleSwitchLabel>
-      { labelLeft }
-    </ToggleSwitchLabel>
+    <ToggleSwitchLabel>{labelLeft}</ToggleSwitchLabel>
 
     <ToggleSwitchContainer className="switch">
-      <ToggleSwitchInput 
-        type="checkbox" 
+      <ToggleSwitchInput
+        type="checkbox"
         checked={checked}
         onChange={onChange}
       />
       <ToggleSwitchSpan className="switch-slider" />
     </ToggleSwitchContainer>
 
-    <ToggleSwitchLabel>
-      { labelRight }
-    </ToggleSwitchLabel>
+    <ToggleSwitchLabel>{labelRight}</ToggleSwitchLabel>
   </Container>
 )

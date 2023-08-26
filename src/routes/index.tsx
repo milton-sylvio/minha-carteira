@@ -38,13 +38,7 @@ import { PATHS } from 'helpers/configs/paths'
 
 import { PrivateRoute } from './PrivateRoute'
 
-const {
-  DASHBOARD,
-  LISTING,
-  NEW_REGISTER,
-  SIGN_IN,
-  SIGN_UP,
-} = PATHS
+const { DASHBOARD, LISTING, NEW_REGISTER, SIGN_IN, SIGN_UP } = PATHS
 
 const Routes = () => {
   return (
