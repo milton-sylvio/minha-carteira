@@ -15,7 +15,6 @@ interface ITypeAlert {
 export interface IAlert extends BorderProps, ITypeAlert, SpaceProps {
   closeBtn?: boolean
   message?: string
-  title?: string
 }
 
 export interface IAlertContainer

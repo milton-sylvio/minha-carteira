@@ -14,7 +14,6 @@ export const UiAlert = ({
   type = 'success',
   closeBtn = false,
   message = '',
-  title,
   ...rest
 }: IAlert) => {
   const [alert, setAlert] = useState<string>('')
@@ -44,7 +43,6 @@ export const UiAlert = ({
     >
       <Box display="flex" alignItems="center">
         <AlertIcon type={type} />
-        {title ?? null}
         {message}
       </Box>
 
