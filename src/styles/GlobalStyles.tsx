@@ -30,6 +30,16 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    padding: 0;
+    line-height: inherit;
+    color: inherit;
+  }
+
   strong,
   .strong {
     font-weight: ${props => props.theme.general.fontWeights.bold};

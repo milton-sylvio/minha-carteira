@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 import { darken, rgba } from 'polished'
 
 import { UiToggleSwitch } from 'components/UI'
+
 interface IContainerProps {
   menuIsOpen: boolean
 }

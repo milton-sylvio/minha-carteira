@@ -8,7 +8,7 @@ import { useTheme } from 'hooks/theme'
 
 import Routes from 'routes'
 
-const App: React.FC = () => {
+const App = () => {
   const { theme } = useTheme()
   const history = createBrowserHistory()
 
