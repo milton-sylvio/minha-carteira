@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-export default createGlobalStyle `
+export default createGlobalStyle`
   * {
     box-sizing: border-box;
     margin: 0;
@@ -8,11 +8,11 @@ export default createGlobalStyle `
   }
 
   body {
-    background-color: ${ props => props.theme.backoundColor };
-    color: ${ props => props.theme.textColor };
-    font-size: ${ props => props.theme.general.fontSizes[2] };
+    background-color: ${props => props.theme.backoundColor};
+    color: ${props => props.theme.textColor};
+    font-size: ${props => props.theme.general.fontSizes[2]};
   }
-  
+
   html,
   body,
   #root {
@@ -26,24 +26,34 @@ export default createGlobalStyle `
 
   a,
   button,
-  select { 
+  select {
     cursor: pointer;
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    padding: 0;
+    line-height: inherit;
+    color: inherit;
   }
 
   strong,
   .strong {
-    font-weight: ${ props => props.theme.general.fontWeights.bold };
+    font-weight: ${props => props.theme.general.fontWeights.bold};
   }
 
-  input, 
-  textarea, 
+  input,
+  textarea,
   select {
     background-image: none;
     box-sizing: border-box;
     outline: none;
     font-family: inherit;
   }
-  input, 
+  input,
   textarea {
     -webkit-appearance: none;
   }
@@ -60,15 +70,15 @@ export default createGlobalStyle `
   h4,
   h5,
   h6 {
-    font-weight: ${ props => props.theme.general.fontWeights.bold };
+    font-weight: ${props => props.theme.general.fontWeights.bold};
   }
 
   h1 {
-    font-size: ${ props => props.theme.general.fontSizes[5] };
+    font-size: ${props => props.theme.general.fontSizes[5]};
   }
 
   a {
-    color: ${ props => props.theme.general.colors.secondary };
+    color: ${props => props.theme.general.colors.secondary};
     text-decoration: none;
 
     &:hover {

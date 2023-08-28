@@ -8,24 +8,18 @@ import arrowUpIcon from 'assets/arrow-up.svg'
 import { Container } from './styles'
 import { IColorCard } from './types'
 
-const ColorCard: React.FC<IColorCard> = ({
-  title,
-  amount,
-  description,
-  icon,
-  color,
-}) => {
+const ColorCard = ({ title, amount, description, icon, color }: IColorCard) => {
   const iconFormated = {
-    'dollar': dollarIcon,
-    'arrowDown': arrowDownIcon,
-    'arrowUp': arrowUpIcon,
+    dollar: dollarIcon,
+    arrowDown: arrowDownIcon,
+    arrowUp: arrowUpIcon,
   }
 
   const getIcon = iconFormated[icon]
 
   return (
     <Container className={color}>
-      <span>{ title }</span>
+      <span>{title}</span>
 
       <strong>
         <CountUp
@@ -35,11 +29,11 @@ const ColorCard: React.FC<IColorCard> = ({
           separator="."
           decimals={2}
           decimal=","
-      />
-     </strong>
+        />
+      </strong>
 
       <img src={getIcon} alt={title} />
-      <small>{ description }</small>
+      <small>{description}</small>
     </Container>
   )
 }

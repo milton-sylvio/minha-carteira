@@ -16,11 +16,11 @@ const animate = keyframes`
 `
 
 export const Container = styled(Card)`
-  animation: ${ animate } 0.5s;
+  animation: ${animate} 0.5s;
   height: 260px;
   width: 48%;
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
     height: 200px;
     width: 100%;
   }
@@ -52,35 +52,35 @@ export const Legend = styled.li`
 
   > div {
     align-items: center;
-    border-radius: ${ props => props.theme.general.bordersRadius.normal };
-    color: ${ props => props.theme.general.colors.white };
+    border-radius: ${props => props.theme.general.bordersRadius.normal};
+    color: ${props => props.theme.general.colors.white};
     display: flex;
-    font-size: ${ props => props.theme.general.fontSizes[0] };
-    font-weight: ${ props => props.theme.general.fontWeights.bold };
+    font-size: ${props => props.theme.general.fontSizes[0]};
+    font-weight: ${props => props.theme.general.fontWeights.bold};
     height: 45px;
     justify-content: center;
     margin-right: 10px;
     width: 45px;
 
     &.entry {
-      background-color: ${ props => props.theme.general.colors.success }
+      background-color: ${props => props.theme.general.colors.success};
     }
     &.output {
-      background-color: ${ props => props.theme.general.colors.primary };
+      background-color: ${props => props.theme.general.colors.primary};
     }
 
-    @media(max-width: ${ props => props.theme.general.sizes.medium }) {
+    @media (max-width: ${props => props.theme.general.sizes.medium}) {
       height: 35px;
       width: 35px;
     }
 
-    @media(max-width: ${ props => props.theme.general.sizes.small }) {
+    @media (max-width: ${props => props.theme.general.sizes.small}) {
       height: 28px;
       width: 28px;
     }
   }
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
-    font-size: ${ props => props.theme.general.fontSizes[1] };
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
+    font-size: ${props => props.theme.general.fontSizes[1]};
   }
 `

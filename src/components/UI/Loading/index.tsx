@@ -1,13 +1,8 @@
 import React from 'react'
 
-import { 
-  Container,
-  Content,
-  Title,
-  BarLoading
-} from './styles'
+import { Container, Content, Title, BarLoading } from './styles'
 
-export const UiLoading: React.FC = () => (
+export const UiLoading = () => (
   <Container>
     <Content>
       <Title>Carregando...</Title>

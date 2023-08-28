@@ -1,4 +1,4 @@
-import React, { useMemo , useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 
 import ContentHeader from 'components/ContentHeader'
 import HistoryFinances from 'components/HistoryFinances'
@@ -17,31 +17,40 @@ import { Container, Content, Filters } from './styles'
 
 import { IData, IRouteParams } from './types'
 
-const List: React.FC<IRouteParams> = ({ match }) => {
+const List = ({ match }: IRouteParams) => {
   const routeEntrance = 'entradas'
   const recurrent = 'recorrente'
   const eventual = 'eventual'
   const colorEntry = colors.danger
   const colorOutput = colors.warning
   const dateNow = new Date()
-  
+
   const [data, setData] = useState<IData[]>([])
-  const [monthSelected, setMonthSelected] = useState<number>(dateNow.getMonth() + 1)
-  const [yearSelected, setYearSelected] = useState<number>(dateNow.getFullYear())
-  const [frequencySelected, setFrequencySelected] = useState([recurrent, eventual])
+  const [monthSelected, setMonthSelected] = useState<number>(
+    dateNow?.getMonth() + 1,
+  )
+  const [yearSelected, setYearSelected] = useState<number>(
+    dateNow?.getFullYear(),
+  )
+  const [frequencySelected, setFrequencySelected] = useState([
+    recurrent,
+    eventual,
+  ])
 
   const { type } = match.params
 
   const changes = useMemo(() => {
-    return type === routeEntrance ? {
-      title: 'Entradas',
-      color: colorEntry,
-      listData: gains
-    } : {
-      title: 'Saídas',
-      color: colorOutput,
-      listData: expenses
-    }
+    return type === routeEntrance
+      ? {
+          title: 'Entradas',
+          color: colorEntry,
+          listData: gains,
+        }
+      : {
+          title: 'Saídas',
+          color: colorOutput,
+          listData: expenses,
+        }
   }, [type, colorEntry, colorOutput])
 
   const list = changes.listData
@@ -56,10 +65,10 @@ const List: React.FC<IRouteParams> = ({ match }) => {
   }, [])
 
   const years = useMemo(() => {
-    let uniqueYears: number[] = []
+    const uniqueYears: number[] = []
 
     list.forEach(item => {
-      const date = new Date(item.date)
+      const date = new Date(item?.date || '')
       const year = date.getFullYear()
 
       if (!uniqueYears.includes(year)) {
@@ -82,7 +91,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       const filtered = frequencySelected.filter(item => item !== frequency)
       setFrequencySelected(filtered)
     } else {
-      setFrequencySelected((prev) => [...prev,frequency])
+      setFrequencySelected(prev => [...prev, frequency])
     }
   }
 
@@ -94,33 +103,33 @@ const List: React.FC<IRouteParams> = ({ match }) => {
     }
   }
 
-  const handleYearSelected = (year : string) => {
+  const handleYearSelected = (year: string) => {
     try {
-      setYearSelected(Number(year ))
+      setYearSelected(Number(year))
     } catch (error) {
       throw new Error('Valor inválido do mês. Aceito somente de 0 - 23')
     }
   }
-  
+
   useEffect(() => {
     const filteredData = list.filter(item => {
-      const date = new Date(item.date)
+      const date = new Date(item?.date || '')
       const month = date.getMonth() + 1
       const year = date.getFullYear()
-      const frequency = frequencySelected.includes(item.frequency)
+      const frequency = frequencySelected.includes(item?.frequency || '')
 
       return month === monthSelected && year === yearSelected && frequency
     })
-    
+
     const formattedData = filteredData.map(item => {
       const token = Math.random().toString(36).substr(2)
 
       return {
         id: token + token,
-        description: item.description,
-        amountFormatted: formatCurrency(Number(item.amount)),
-        frequency: item.frequency === recurrent ? colorEntry : colorOutput,
-        dateFormatted: formatDate(item.date),
+        description: item?.description || '',
+        amountFormatted: formatCurrency(Number(item?.amount)),
+        frequency: item?.frequency === recurrent ? colorEntry : colorOutput,
+        dateFormatted: formatDate(item?.date || ''),
       }
     })
 
@@ -131,41 +140,37 @@ const List: React.FC<IRouteParams> = ({ match }) => {
     yearSelected,
     frequencySelected,
     colorEntry,
-    colorOutput
+    colorOutput,
   ])
 
   return (
     <Container>
       <ContentHeader title={changes.title}>
-        <UiDropdown 
-          options={months} 
-          onChange={(e) => handleMonthSelected(e.target.value)}
+        <UiDropdown
+          options={months}
+          onChange={e => handleMonthSelected(e.target.value)}
           defaultValue={monthSelected}
         />
-        <UiDropdown 
-          options={years} 
-          onChange={(e) => handleYearSelected(e.target.value)}
+        <UiDropdown
+          options={years}
+          onChange={e => handleYearSelected(e.target.value)}
           defaultValue={yearSelected}
         />
       </ContentHeader>
 
       <Filters>
-        <button 
+        <button
           type="button"
-          className={
-            `tag-filter tag-filter-recurrent 
-            ${frequencySelected.includes(recurrent) && 'tag-filter-active'}`
-          }
+          className={`tag-filter tag-filter-recurrent
+            ${frequencySelected.includes(recurrent) && 'tag-filter-active'}`}
           onClick={() => handleFrequencyClick(recurrent)}
-          >
+        >
           Recorrentes
         </button>
-        <button 
+        <button
           type="button"
-          className={
-            `tag-filter tag-filter-eventual 
-            ${frequencySelected.includes(eventual) && 'tag-filter-active'}`
-          }
+          className={`tag-filter tag-filter-eventual
+            ${frequencySelected.includes(eventual) && 'tag-filter-active'}`}
           onClick={() => handleFrequencyClick(eventual)}
         >
           Eventuais
@@ -173,17 +178,15 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       </Filters>
 
       <Content>
-        {
-          data.map(item => (
-            <HistoryFinances
-              key={item.id}
-              title={item.description}
-              subtitle={item.dateFormatted}
-              amount={item.amountFormatted}
-              borderColor={item.frequency}
-            />
-          ))
-        }
+        {data.map(item => (
+          <HistoryFinances
+            key={item.id}
+            title={item.description}
+            subtitle={item.dateFormatted}
+            amount={item.amountFormatted}
+            borderColor={item.frequency}
+          />
+        ))}
       </Content>
     </Container>
   )

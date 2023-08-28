@@ -1,5 +1,5 @@
 const strings = {
-  minhaCarteira: '@minha-carteira:'
+  minhaCarteira: '@minha-carteira:',
 }
 
 export default strings

@@ -15,7 +15,7 @@ const animateLeft = keyframes`
   }
 `
 
-const animateRight= keyframes`
+const animateRight = keyframes`
   0% {
     transform: translateX(100px);
     opacity: 0;
@@ -30,13 +30,13 @@ const animateRight= keyframes`
 `
 
 interface IContainerProps {
-  borderColor: string;
+  borderColor: string
 }
 
 export const Container = styled(Card)<IContainerProps>`
   align-items: center;
-  animation: ${ animateLeft } 0.5s ease-in;
-  border-left: 8px solid ${ props => props.borderColor };
+  animation: ${animateLeft} 0.5s ease-in;
+  border-left: 8px solid ${props => props.borderColor};
   cursor: pointer;
   justify-content: space-between;
   margin: 0 0 10px;
@@ -44,7 +44,7 @@ export const Container = styled(Card)<IContainerProps>`
   transition: all 0.3s;
 
   &:nth-child(even) {
-    animation: ${ animateRight } 0.5s ease-in;
+    animation: ${animateRight} 0.5s ease-in;
   }
 
   > div {
@@ -57,7 +57,7 @@ export const Container = styled(Card)<IContainerProps>`
   }
 
   &:hover {
-    box-shadow: 0 0 5px 3px rgba(0,0,0,0.2);
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
     transform: translateX(10px);
   }
 `

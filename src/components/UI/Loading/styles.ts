@@ -42,7 +42,7 @@ const loading = keyframes`
   80% {
     transform: translateX(64px);
     width: 16px;
-  } 
+  }
 
   90% {
     transform: translateX(0px);
@@ -82,11 +82,11 @@ const loadingBefore = keyframes`
 `
 
 export const Container = styled.main`
-   align-items: center;
-   display: flex;
-   height: 100vh;
-   justify-content: center;
-   width: 100%;
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
 `
 
 export const Content = styled.div`
@@ -97,7 +97,7 @@ export const Content = styled.div`
 
 export const Title = styled.p`
   animation: ${text} 3.5s ease both infinite;
-  color: ${ props => props.theme.general.colors.secondary };
+  color: ${props => props.theme.general.colors.secondary};
   font-size: 12px;
   letter-spacing: 1px;
   margin: 0;
@@ -107,7 +107,7 @@ export const Title = styled.p`
 
 export const BarLoading = styled.span`
   animation: ${loading} 3.5s ease both infinite;
-  background-color: ${ props => props.theme.general.colors.secondary };
+  background-color: ${props => props.theme.general.colors.secondary};
   border-radius: 50px;
   bottom: 0;
   display: block;
@@ -118,9 +118,10 @@ export const BarLoading = styled.span`
 
   &:before {
     animation: ${loadingBefore} 3.5s ease both infinite;
-    background-color: ${ props => darken(0.15, props.theme.general.colors.secondary) };
+    background-color: ${props =>
+      darken(0.15, props.theme.general.colors.secondary)};
     border-radius: inherit;
-    content: "";
+    content: '';
     height: 100%;
     position: absolute;
     width: 100%;

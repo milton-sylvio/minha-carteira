@@ -14,5 +14,5 @@ ReactDOM.render(
       </ThemeProvider>
     </MenuMobileProvider>
   </React.StrictMode>,
-  document.getElementById('root')
-);
+  document.getElementById('root'),
+)

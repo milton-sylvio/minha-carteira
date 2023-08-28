@@ -10,8 +10,8 @@ export const Content = styled.section`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
+
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
     justify-content: center;
   }
 `
@@ -32,13 +32,13 @@ const animate = keyframes`
 
 export const ContainerColorsCards = styled.div`
   align-items: center;
-  animation: ${ animate } 0.5s;
+  animation: ${animate} 0.5s;
   display: flex;
   flex-direction: row;
   position: relative;
   width: 100%;
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
     align-items: flex-stretch;
     flex-direction: column;
   }

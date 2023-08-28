@@ -3,14 +3,15 @@ import React from 'react'
 import { useMenuMobile } from 'hooks/menu'
 
 import { Container, Overlay } from './styles'
+import { IContent } from './types'
 
-const Content: React.FC = ({ children }) => {
+const Content = ({ children }: IContent) => {
   const { toggleMenu } = useMenuMobile()
 
   return (
     <Container>
-      { children }
-      <Overlay className={ toggleMenu ? 'overlay' : '' } />
+      {children}
+      <Overlay className={toggleMenu ? 'overlay' : ''} />
     </Container>
   )
 }

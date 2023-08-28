@@ -2,22 +2,18 @@ import React from 'react'
 
 import Logo from 'components/Logo'
 
-import {
-  Container,
-  ContainerSignin,
-  ContainerForm,
-} from './styles'
+import { Container, ContainerSignin, ContainerForm } from './styles'
 
-const AuthTemplate: React.FC = ({ children }) => (
+import { IAuthTemplate } from './types'
+
+const AuthTemplate = ({ children }: IAuthTemplate) => (
   <Container>
     <ContainerSignin>
       <Logo />
 
-      <ContainerForm>
-        { children }
-      </ContainerForm>
+      <ContainerForm>{children}</ContainerForm>
     </ContainerSignin>
   </Container>
-);
+)
 
-export default AuthTemplate;
+export default AuthTemplate

@@ -16,9 +16,8 @@ const animate = keyframes`
   }
 `
 
-
 export const Container = styled(Card)`
-  animation: ${ animate } 0.5s;
+  animation: ${animate} 0.5s;
   flex-direction: column;
   height: 260px;
   width: 48%;
@@ -41,7 +40,7 @@ export const Container = styled(Card)`
     bottom: 30px;
   }
 
-  @media(max-width: ${ props => props.theme.general.sizes.medium }) {
+  @media (max-width: ${props => props.theme.general.sizes.medium}) {
     height: 200px;
     width: 100%;
   }
