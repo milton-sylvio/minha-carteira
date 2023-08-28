@@ -8,8 +8,9 @@ import {
   FormErrorMessage,
   FormGroup,
   FormLabel,
-  UiInput,
+  UiAlert,
   UiButton,
+  UiInput,
 } from 'components/UI'
 
 import { PATHS } from 'helpers/configs/paths'
@@ -64,9 +65,17 @@ const SignIn = () => {
     <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />
   )
 
+  const showAlert = () => {
+    if (error && !loading && !loader) {
+      return <UiAlert closeBtn mb={4} message={error} type="error" />
+    }
+  }
+
   return (
     <>
       <h1>Entrar</h1>
+
+      {showAlert()}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer className="form-vertical">

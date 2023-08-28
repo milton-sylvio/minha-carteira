@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Spinner from 'components/Spinner'
+import Spinner from 'components/UI/Spinner'
 
 import { Container } from './styles'
 import { IButtonProps } from './types'
